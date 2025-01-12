@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Logo from "../image/logotest.png";
-import Button from "../components/common/Button";
+import Logo from "../image/언어나무.png";
+import "../styles/Login.css";
 
 const login = () =>{
     const [userId,setuserId] = useState("");
@@ -26,23 +26,20 @@ const login = () =>{
         <div className="login-container">
             <img src={Logo} width={300} height={300}/>
             <form className="login-input">
-                <label htmlFor="userId">아이디</label>
                 <input className="id-input"
                 type="text"
                 id="userid"
                 value={userId}
                 onChange={handleInputId}
+                placeholder="아이디"
                 />
-
-                <label htmlFor="password">비밀번호</label>
                 <input className="pw-input"
                 type="password"
                 id="password" 
                 value={password}
-                onChange={handleInputpw}/>
-                <p> 입력됏어 : !{userId}!</p>
-                <p> 입력됏어 : !{password}!</p>
-                <Button text={"로그인"} type="submit" className="login_btn"/>
+                onChange={handleInputpw}
+                placeholder="비밀번호"/>
+                <button type="submit" className="login_Btn">로그인</button>
             </form>
         </div>
     );

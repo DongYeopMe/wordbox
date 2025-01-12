@@ -1,18 +1,16 @@
 import { useState } from 'react'
 import './App.css'
-import Button from './components/common/Button.jsx'
-import Login from './pages/login.jsx'
+import {BrowserRouter,Routes,Route} from 'react-router-dom';
+import Login from './pages/Login.jsx'
 import Home from './pages/Home.jsx'
 function App() {
-  const [count, setCount] = useState(0)
-  const onCount= () =>{
-    setCount(count+1);
-    console.log(count);
-  }
   return (
-    <div className='container'>
-      <Home/>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Login/>}/>
+        <Route path='/voca' element={<Home/>}/>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
