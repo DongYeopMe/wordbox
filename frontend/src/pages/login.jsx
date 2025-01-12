@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Logo from "../image/언어나무.png";
+import Button from "../components/common/Button";
 import "../styles/Login.css";
 
 const login = () =>{
@@ -23,7 +24,7 @@ const login = () =>{
     }
 
     return (
-        <div className="login-container">
+        <div className="container">
             <img src={Logo} width={300} height={300}/>
             <form className="login-input">
                 <input className="id-input"
@@ -39,7 +40,8 @@ const login = () =>{
                 value={password}
                 onChange={handleInputpw}
                 placeholder="비밀번호"/>
-                <button type="submit" className="login_Btn">로그인</button>
+                <Button text={"로그인"} type={"text"}name={"login"}
+                ></Button>
             </form>
         </div>
     );
