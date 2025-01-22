@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+}
+.header{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+.Today_Score{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 13px;
+    gap: 5px;
+}
+.problem_space{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+    border: 3px solid #ddd;
+}
+.sentence_space{
+    border: 3px solid #ddd;
+}
+.hint_space{
+    border: 3px solid #ddd;
+}
+.choice_space{
+    border: 3px solid #ddd;
+    text-align: center;
+}

@@ -1,0 +1,7 @@
+.container {
+    display: flex;
+}
+.Fill_detail p{
+    display: flex;
+    flex-direction: column;
+}
