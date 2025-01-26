@@ -6,6 +6,7 @@ import Home from './pages/Home.jsx'
 import Quiz from './pages/Quiz.jsx'
 import AddVoca from './pages/addVoca.jsx';
 import EditVoca from './pages/editVoca.jsx';
+import WordList from './pages/WordList.jsx';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path='/quiz' element={<Quiz/>}/>
         <Route path='/addWord' element={<AddVoca/>}/>
         <Route path='/editWord' element={<EditVoca/>}/>
+        <Route path='/list' element={<WordList/>}/>
       </Routes>
     </BrowserRouter>
   )

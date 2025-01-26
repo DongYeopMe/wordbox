@@ -25,7 +25,7 @@ const login = () =>{
 
     return (
         <div className="container">
-            <img src={Logo} width={300} height={300}/>
+            <img src={Logo} width={200} height={200}/>
             <form className="login-input">
                 <input className="id-input"
                 type="text"
