@@ -9,7 +9,7 @@ const stubData = [
     id: 2,
     word: "book",
     meaning: "책",
-    example: "She is reading a book in the library.",
+    example: "She is reading a book in the library",
   },
   {
     id: 3,

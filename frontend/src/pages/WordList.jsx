@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Button from "../components/common/Button";
 import stubData from "../data/voca.js";
+import ScrollToTop from "../components/home/ScrollToTop.jsx"
 import "../styles/WordList.css";
 
 const WordList = () => {
@@ -36,11 +37,13 @@ const WordList = () => {
                                 {item.meaning}
                             </span>
                         </div>
-                        <span>{item.example}</span>
+                        <div className="example">
+                            <p>{item.example}</p>
+                        </div>
                     </div>
                 ))}
             </div>
-            <button>맨위로</button>
+            <ScrollToTop/>
         </div>
     );
 };
