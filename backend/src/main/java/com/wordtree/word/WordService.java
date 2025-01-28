@@ -20,12 +20,17 @@ public class WordService {
         findWord.setTitle(wordRequest.getTitle());
         findWord.setExample(wordRequest.getExample());
         findWord.setMeaning(wordRequest.getMeaning());
-        findWord.setCategory(wordRequest.getCategory());
-        findWord.setLevel(wordRequest.getLevel());
+        findWord.setLanguage(wordRequest.getLanguage());
+        findWord.setCardList(wordRequest.getCardList());
     }
 
     public Word getWordOne(GetWordRequest getWordRequest) {
         Word findword = wordRepository.findByTitle(getWordRequest.getTitle());
-        return Word;
+        return findword;
     }
+    public Word getWordList(GetWordRequest getWordRequest) {
+        Word findword = wordRepository.findByTitle(getWordRequest.getTitle());
+        return findword;
+    }
+
 }

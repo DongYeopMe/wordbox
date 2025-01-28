@@ -12,8 +12,16 @@ public enum ResultCode {
     DELETE_SUCCESS(200,"회원 삭제 완료"),
     GET_MEMBER(200,"유저 가져오기 완료됐습니다."),
 
-    ADD_SUCCESS(200, "단어 추가 성공했습니다."),
-    EDIT_SUCCESS(200, "수정 완료");
+    CARD_ADD_SUCCESS(200, "카드 추가 성공했습니다."),
+    CARD_EDIT_SUCCESS(200, "카드 수정 완료"),
+    CARD_GET_SUCCESS(200, "카드 가져오기 완료"),
+    CARDLIST_GET_SUCCESS(200, "카드 리스트 가져오기 완료"),
+
+    WORD_ADD_SUCCESS(200, "단어 추가 성공했습니다."),
+    WORD_EDIT_SUCCESS(200, "단어 수정 완료"),
+    WORD_GET_SUCCESS(200, "단어 가져오기 완료"),
+    WORDLIST_GET_SUCCESS(200, "단어 리스트 가져오기 완료");
+
 
 
 

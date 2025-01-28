@@ -15,15 +15,13 @@ import java.util.List;
 public class MemberResponse {
     private String userid;
     private String username;
-    private List<Word> addWordList;
 
-    public MemberResponse(String userid, String username, List<Word> addWordList) {
+    public MemberResponse(String userid, String username) {
         this.userid = userid;
         this.username = username;
-        this.addWordList = addWordList;
     }
 
     public static MemberResponse memberConvert(Member member){
-        return new MemberResponse(member.getUsername(),member.getUserid(),member.getAddWordList());
+        return new MemberResponse(member.getUsername(),member.getUserid());
     }
 }

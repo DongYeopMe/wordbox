@@ -5,6 +5,7 @@ import com.wordtree.word.Word;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -26,6 +27,11 @@ public class Member {
     private String password;
     @Column(name="member_username", nullable = false)
     private String username;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "member_id")
+    private List<Word> words = new ArrayList<>();
+
     public static Member requestConvert(MemberRequest memberRequest){
         return Member.builder()
                 .userid(memberRequest.getUserid())
