@@ -1,5 +1,6 @@
 package com.wordtree.member;
 
+import com.wordtree.card.Card;
 import com.wordtree.member.dto.MemberRequest;
 import com.wordtree.word.Word;
 import jakarta.persistence.*;
@@ -8,11 +9,9 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Builder
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @Table(name="members")
 public class Member {
@@ -31,6 +30,18 @@ public class Member {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "member_id")
     private List<Word> words = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "member_id")
+    private List<Card> cards = new ArrayList<>();
+
+
+    @Builder
+    public Member(String userid, String password, String username) {
+        this.userid = userid;
+        this.password = password;
+        this.username = username;
+    }
 
     public static Member requestConvert(MemberRequest memberRequest){
         return Member.builder()

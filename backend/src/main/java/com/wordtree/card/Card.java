@@ -6,12 +6,9 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Builder
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name="cards")
 public class Card {
     @Id
@@ -31,4 +28,12 @@ public class Card {
 
     @OneToMany(mappedBy = "card", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CardWord> cardWords = new ArrayList<>();
+
+    @Builder
+    public Card(String title, int count, Language language) {
+        this.title = title;
+        this.count = count;
+        this.language = language;
+    }
+
 }

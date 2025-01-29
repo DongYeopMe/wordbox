@@ -11,10 +11,9 @@ import java.util.List;
 public class CardService {
     private final CardRepository cardRepository;
     public void createCard(CardRequest cardRequest) {
-        Card card = new Card();
-        card.setLanguage(cardRequest.getLanguage());
-        card.setTitle(cardRequest.getTitle());
-        card.setCount(0);
+        Card card = Card.builder().language(cardRequest.getLanguage())
+                .title(cardRequest.getTitle())
+                .count(0).build();
         cardRepository.save(card);
     }
 

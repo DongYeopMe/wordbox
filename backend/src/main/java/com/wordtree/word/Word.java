@@ -13,7 +13,6 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-@Builder
 @Entity
 @Getter
 @Setter
@@ -33,10 +32,17 @@ public class Word {
     private String example;
     @Column(name = "word_category")
     private Language language;
-    @Column(name = "word_level")
-    private List<Card> cardList;
+
     @OneToMany(mappedBy = "word", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CardWord> cardWords = new ArrayList<>();
+
+    @Builder
+    public Word(String title, String meaning, String example, Language language) {
+        this.title = title;
+        this.meaning = meaning;
+        this.example = example;
+        this.language = language;
+    }
 
     public static Word requestConvert(WordRequest wordRequest){
         return Word.builder()
@@ -44,7 +50,6 @@ public class Word {
                 .meaning(wordRequest.getMeaning())
                 .example(wordRequest.getExample())
                 .language(wordRequest.getLanguage())
-                .cardList(wordRequest.getCardList())
                 .build();
     }
 }
