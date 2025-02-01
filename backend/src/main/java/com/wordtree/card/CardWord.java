@@ -4,14 +4,15 @@ import com.wordtree.word.Word;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Setter
 @Getter
+@NoArgsConstructor
 @Table(name = "card_words")
 public class CardWord {
 
@@ -28,11 +29,11 @@ public class CardWord {
     private Word word;
 
     @Column(nullable = false)
-    @CreatedDate
     private LocalDateTime createdAt;
     @Builder
     public CardWord(Card card, Word word) {
         this.card = card;
         this.word = word;
+        this.createdAt = LocalDateTime.now();
     }
 }

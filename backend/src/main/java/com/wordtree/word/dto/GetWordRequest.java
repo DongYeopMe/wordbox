@@ -6,6 +6,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class GetWordRequest {
-    private String title;
-    private String meaning;
+    private String item;
+    private String mean;
 }

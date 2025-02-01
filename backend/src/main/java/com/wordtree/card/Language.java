@@ -7,8 +7,8 @@ import lombok.Getter;
 @Getter
 public enum Language {
     TOTAL("전체"),
-    JAPANESE("日本語"),
-    ENGLISH("ENGLISH");
+    JAPANESE("일본어"),
+    ENGLISH("영어");
 
     private final String desc;
 

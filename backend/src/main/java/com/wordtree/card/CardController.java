@@ -25,10 +25,18 @@ public class CardController {
         cardService.editCard(id,cardRequest);
         return ResponseEntity.ok(ResultResponse.of(CARD_EDIT_SUCCESS,true));
     }
-    @PostMapping("/getList")
-    public ResponseEntity<Object> getCards(@RequestParam String language){
-        List<Card> response =cardService.getList(language);
+
+    @GetMapping("/getCard")
+    public ResponseEntity<Object> getCard(@RequestBody CardRequest cardRequest){
+        Card response =cardService.getOne(cardRequest);
         return ResponseEntity.ok(ResultResponse.of(CARD_ADD_SUCCESS,response));
     }
+
+    @GetMapping("/getList")
+    public ResponseEntity<Object> getCards(@RequestParam Language language){
+        List<Card> response =cardService.getList(language);
+        return ResponseEntity.ok(ResultResponse.of(CARDLIST_GET_SUCCESS,response));
+    }
+
 
 }

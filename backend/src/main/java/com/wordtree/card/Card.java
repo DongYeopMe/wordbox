@@ -1,7 +1,11 @@
 package com.wordtree.card;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +13,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @Table(name="cards")
 public class Card {
     @Id
@@ -27,6 +32,7 @@ public class Card {
     private Language language;
 
     @OneToMany(mappedBy = "card", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<CardWord> cardWords = new ArrayList<>();
 
     @Builder
@@ -35,5 +41,11 @@ public class Card {
         this.count = count;
         this.language = language;
     }
-
+    public static Card requestConvert(CardRequest cardRequest){
+        return Card.builder()
+                .title(cardRequest.getTitle())
+                .count(0)
+                .language(cardRequest.getLanguage())
+                .build();
+    }
 }

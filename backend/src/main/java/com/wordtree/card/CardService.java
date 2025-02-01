@@ -11,10 +11,7 @@ import java.util.List;
 public class CardService {
     private final CardRepository cardRepository;
     public void createCard(CardRequest cardRequest) {
-        Card card = Card.builder().language(cardRequest.getLanguage())
-                .title(cardRequest.getTitle())
-                .count(0).build();
-        cardRepository.save(card);
+        cardRepository.save(Card.requestConvert(cardRequest));
     }
 
     public void editCard(Long id,CardRequest cardRequest) {
@@ -22,14 +19,16 @@ public class CardService {
         card.setTitle(cardRequest.getTitle());
     }
 
-    public List<Card> getList(String language) {
-        if(language.equals(Language.TOTAL.name())){
-            List<Card> cards = cardRepository.findAll();
-            return cards;
+    public List<Card> getList(Language language) {
+        // "전체" 선택 시 모든 카드 반환
+        if (language == Language.TOTAL) {
+            return cardRepository.findAll();
         }
-        else{
-            List<Card> cards = cardRepository.findCardsByLanguage(language);
-            return cards;
-        }
+        // 특정 언어에 맞는 카드 반환
+        return cardRepository.findCardsByLanguage(language);
+    }
+
+    public Card getOne(CardRequest cardRequest) {
+        return cardRepository.findCardByLanguageTitle(cardRequest.getLanguage(),cardRequest.getTitle());
     }
 }
