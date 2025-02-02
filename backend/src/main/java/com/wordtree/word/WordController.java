@@ -24,9 +24,9 @@ public class WordController {
         wordService.add(wordRequest);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.WORD_ADD_SUCCESS));
     }
-    @PatchMapping("/edit")
-    public ResponseEntity<Object> editWord(@RequestBody WordRequest wordRequest){
-        wordService.edit(wordRequest);
+    @PatchMapping("/edit/{id}")
+    public ResponseEntity<Object> editWord(@PathVariable Long id,@RequestBody WordRequest wordRequest){
+        wordService.edit(id,wordRequest);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.WORD_EDIT_SUCCESS));
     }
     @GetMapping("/get")

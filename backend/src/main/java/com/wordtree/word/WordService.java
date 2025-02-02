@@ -40,12 +40,38 @@ public class WordService {
         cardWordRepository.saveAll(cardWords);
     }
     @Transactional
-    public void edit(WordRequest wordRequest) {
-        Word findWord = wordRepository.findByItem(wordRequest.getItem());
+    public void edit(Long id,WordRequest wordRequest) {
+        Word findWord = wordRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Word Entity 못찾았습니다."));
+
+        List<CardWord> oldCardWords = cardWordRepository.findByWord(findWord);
+        List<Card> oldCards = oldCardWords.stream()
+                .map(CardWord::getCard)
+                .collect(Collectors.toList());
+
+        findWord.setItem(wordRequest.getItem());
         findWord.setItem(wordRequest.getItem());
         findWord.setExample(wordRequest.getExample());
         findWord.setMean(wordRequest.getMean());
         findWord.setLanguage(wordRequest.getLanguage());
+
+        List<Card> newCards = cardRepository.findCardsByTitleANDLanguage(wordRequest.getTitles(),wordRequest.getLanguage());
+        if (newCards.isEmpty()) {
+            throw new EntityNotFoundException("카드를 찾을 수 없습니다.");
+        }
+        for (Card oldCard : oldCards) {
+            if (!newCards.contains(oldCard)) { // 새로운 카드 리스트에 없는 경우
+                cardRepository.decrementCardCounts(oldCard.getTitle(), oldCard.getLanguage());
+                cardWordRepository.deleteByCardAndWord(oldCard, findWord);
+            }
+        }
+
+        cardRepository.incrementCardCounts(wordRequest.getTitles(),wordRequest.getLanguage());
+
+        List<CardWord> newCardWords = newCards.stream()
+                .map(card -> new CardWord(card,findWord))
+                .collect(Collectors.toList());
+        cardWordRepository.saveAll(newCardWords);
+
     }
 
     public Word getWordOne(GetWordRequest getWordRequest) {

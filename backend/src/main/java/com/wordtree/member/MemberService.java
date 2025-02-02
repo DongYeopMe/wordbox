@@ -20,8 +20,7 @@ public class MemberService {
 
     @Transactional
     public void editMember(MemberRequest memberRequest) {
-        Member findMember = memberRepository.findByUserName(memberRequest.getUsername());
-        findMember.setUserid(memberRequest.getUserid());
+        Member findMember = memberRepository.findByUserId(memberRequest.getUserid());
         findMember.setPassword(memberRequest.getPassword());
         findMember.setUsername(memberRequest.getUsername());
     }

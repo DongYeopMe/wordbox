@@ -3,6 +3,7 @@ package com.wordtree.card;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -10,13 +11,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CardService {
     private final CardRepository cardRepository;
+    @Transactional
     public void createCard(CardRequest cardRequest) {
         cardRepository.save(Card.requestConvert(cardRequest));
     }
-
-    public void editCard(Long id,CardRequest cardRequest) {
-        Card card = cardRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("못찾겠습니다."));
-        card.setTitle(cardRequest.getTitle());
+    @Transactional
+    public void editCard(Long id,CardUpdateRequest cardUpdateRequest) {
+        Card card = cardRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Card 엔티티를 못찾았습니다."));
+        card.setTitle(cardUpdateRequest.getTitle());
     }
 
     public List<Card> getList(Language language) {

@@ -20,16 +20,16 @@ public class CardController {
         cardService.createCard(cardRequest);
         return ResponseEntity.ok(ResultResponse.of(CARD_ADD_SUCCESS,true));
     }
-    @PostMapping("/update/{id}")
-    public ResponseEntity<Object> updateCard(@PathVariable Long id,@RequestBody CardRequest cardRequest){
-        cardService.editCard(id,cardRequest);
+    @PatchMapping("/update/{id}")
+    public ResponseEntity<Object> updateCard(@PathVariable Long id,@RequestBody CardUpdateRequest cardUpdateRequest){
+        cardService.editCard(id,cardUpdateRequest);
         return ResponseEntity.ok(ResultResponse.of(CARD_EDIT_SUCCESS,true));
     }
 
     @GetMapping("/getCard")
     public ResponseEntity<Object> getCard(@RequestBody CardRequest cardRequest){
         Card response =cardService.getOne(cardRequest);
-        return ResponseEntity.ok(ResultResponse.of(CARD_ADD_SUCCESS,response));
+        return ResponseEntity.ok(ResultResponse.of(CARD_GET_SUCCESS,response));
     }
 
     @GetMapping("/getList")

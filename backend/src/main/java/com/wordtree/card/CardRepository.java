@@ -20,4 +20,9 @@ public interface CardRepository extends JpaRepository<Card,Long> {
     @Modifying
     @Query("UPDATE Card c SET c.count = c.count + 1 WHERE c.title IN :titles AND c.language = :language")
     void incrementCardCounts(@Param("titles") List<String> titles,@Param("language") Language language);
+    @Modifying
+    @Query("UPDATE Card c SET c.count = c.count - 1 WHERE c.title = :title AND c.language = :language")
+    void decrementCardCounts(@Param("title") String title,@Param("language") Language language);
+
+
 }
