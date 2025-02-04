@@ -14,5 +14,8 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
     @Query("select m From Member m where m.userid = :userid")
     Member findByUserId(@Param("userid") String userid);
 
+    boolean existsByUserid(String userid);
+
 
 }
+

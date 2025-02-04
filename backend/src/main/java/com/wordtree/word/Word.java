@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wordtree.card.Card;
 import com.wordtree.card.CardWord;
 import com.wordtree.card.Language;
+import com.wordtree.member.Member;
 import com.wordtree.word.dto.WordRequest;
 import jakarta.persistence.*;
 import lombok.*;
@@ -35,6 +36,10 @@ public class Word {
     @OneToMany(mappedBy = "word", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<CardWord> cardWords = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @Builder
     public Word(String item, String mean, String example, Language language) {

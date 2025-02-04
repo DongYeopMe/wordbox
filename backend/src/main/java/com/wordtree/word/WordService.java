@@ -1,9 +1,9 @@
 package com.wordtree.word;
 
-import com.wordtree.card.Card;
-import com.wordtree.card.CardRepository;
-import com.wordtree.card.CardWord;
-import com.wordtree.card.CardWordRepository;
+import com.wordtree.card.*;
+import com.wordtree.global.jwt.CustomUserDetailsService;
+import com.wordtree.global.jwt.JWTUtil;
+import com.wordtree.member.Member;
 import com.wordtree.word.dto.GetWordListRequest;
 import com.wordtree.word.dto.GetWordRequest;
 import com.wordtree.word.dto.WordRequest;
@@ -24,10 +24,12 @@ public class WordService {
     private final WordRepository wordRepository;
     private final CardWordRepository cardWordRepository;
     private final CardRepository cardRepository;
+    private final CustomUserDetailsService customUserDetailsService;
     @Transactional
     public void add(WordRequest wordRequest) {
-        Word word =wordRepository.save(Word.requestConvert(wordRequest));
-
+        Word word =Word.requestConvert(wordRequest);
+        word.setMember(customUserDetailsService.getAuthenticatedEntity());
+        wordRepository.save(word);
         List<Card> cards = cardRepository.findCardsByTitleANDLanguage(wordRequest.getTitles(),wordRequest.getLanguage());
         if (cards.isEmpty()) {
             throw new EntityNotFoundException("카드를 찾을 수 없습니다.");
@@ -82,6 +84,13 @@ public class WordService {
         Pageable pageable = PageRequest.of(page-1,size);
         Page<Word> findwordPage = wordRepository.findWordsByCardId(getWordListRequest.getCardId(),pageable);
         return findwordPage;
+    }
+    public Page<Word> getMyWordList(int size, int page, Language language){
+        Pageable pageable = PageRequest.of(page-1,size);
+        Member member = customUserDetailsService.getAuthenticatedEntity();
+
+        Page<Word> mywordPage = wordRepository.findMyWords(member,language,pageable);
+        return mywordPage;
     }
 
 }

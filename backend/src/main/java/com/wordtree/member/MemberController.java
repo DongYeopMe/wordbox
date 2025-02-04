@@ -1,6 +1,7 @@
 package com.wordtree.member;
 
 import com.wordtree.global.ResultResponse;
+import com.wordtree.member.dto.LoginForm;
 import com.wordtree.member.dto.MemberRequest;
 import com.wordtree.member.dto.MemberResponse;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +35,6 @@ public class MemberController {
         memberService.delete(userId,password);
         return ResponseEntity.ok(ResultResponse.of(DELETE_SUCCESS,true));
     }
-
 
 
 }

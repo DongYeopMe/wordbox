@@ -1,6 +1,7 @@
 package com.wordtree.card;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.wordtree.member.Member;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,6 +36,9 @@ public class Card {
     @JsonIgnore
     private List<CardWord> cardWords = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
     @Builder
     public Card(String title, int count, Language language) {
         this.title = title;

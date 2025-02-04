@@ -5,9 +5,14 @@ import com.wordtree.member.dto.MemberRequest;
 import com.wordtree.word.Word;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -35,6 +40,7 @@ public class Member {
     @JoinColumn(name = "member_id")
     private List<Card> cards = new ArrayList<>();
 
+    private String roles;
 
     @Builder
     public Member(String userid, String password, String username) {
