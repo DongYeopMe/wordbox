@@ -38,6 +38,7 @@ public class Card {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
+    @JsonIgnore
     private Member member;
     @Builder
     public Card(String title, int count, Language language) {

@@ -28,11 +28,13 @@ public class WordService {
     @Transactional
     public void add(WordRequest wordRequest) {
         Word word =Word.requestConvert(wordRequest);
-        word.setMember(customUserDetailsService.getAuthenticatedEntity());
+        Member member = customUserDetailsService.getAuthenticatedEntity();
+        word.setMember(member);
+
         wordRepository.save(word);
         List<Card> cards = cardRepository.findCardsByTitleANDLanguage(wordRequest.getTitles(),wordRequest.getLanguage());
         if (cards.isEmpty()) {
-            throw new EntityNotFoundException("카드를 찾을 수 없습니다.");
+            throw new EntityNotFoundException("Card Not Found");
         }
         cardRepository.incrementCardCounts(wordRequest.getTitles(),wordRequest.getLanguage());
 

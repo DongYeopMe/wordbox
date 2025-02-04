@@ -31,15 +31,7 @@ public class Member {
     private String password;
     @Column(name="member_username", nullable = false)
     private String username;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "member_id")
-    private List<Word> words = new ArrayList<>();
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "member_id")
-    private List<Card> cards = new ArrayList<>();
-
+    @Column(name="member_role", nullable = false)
     private String roles;
 
     @Builder
