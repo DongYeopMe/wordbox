@@ -7,29 +7,32 @@ import "../styles/Card.css"
 
 const Card = () => {
     const [cards, setCards] = useState([]);
+    const [MyWordsCount, setMyWordCount] = useState(0);
     const [selectedLanguage, setSelectedLanguage] = useState("TOTAL");
     const baseUrl = "http://localhost:8080";
 
     
     
-    const responseCards = useCallback(async (selectedLanguage) =>{
+    const fetchData = useCallback(async () =>{
         try{
-            const response = await axios.get(baseUrl+"/card/getList",{
-                params:{language : selectedLanguage}
-            });
-            setCards(response.data.data);
-            console.log(cards);
+            const [cardsResponse, myWordsResponse] = await Promise.all([
+               axios.get(baseUrl + "/card/getList", {params : { language : selectedLanguage} }),
+               axios.get(baseUrl + "/word/getMyWordCount", {params : {language : selectedLanguage}})
+            ]);
+            setCards(cardsResponse.data.data);
+            setMyWordCount(myWordsResponse.data.data)
+
     } catch (error){
         console.log("API 호출 중 에러 발생했습니다.:",error);
     }
-    },[]);
+    },[selectedLanguage]);
     const handleSelectChange = (event) => {
         setSelectedLanguage(event.target.value);
     };
 
     useEffect(()=>{
-        responseCards(selectedLanguage)
-    },[responseCards,selectedLanguage])
+        fetchData()
+    },[fetchData])
 
     const languages = {
         TOTAL: "전체",
@@ -53,7 +56,7 @@ const Card = () => {
                 {cards.map((item, index) => (
                     <Subject key={index} title={`${item.title}`} quantity={`${item.count}`} />
                 ))}
-                <Subject title={"추가한 \n단어"} quantity={"30"} />
+                <Subject title={"추가한 \n단어"} quantity={MyWordsCount} />
             </div>
         </div>
     );

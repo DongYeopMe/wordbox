@@ -54,6 +54,12 @@ const stubData = [
     meaning: "사랑하다",
     example: "I love spending time with my family.",
   },
+  {
+    id: 11,
+    word: "last",
+    meaning: "마지막",
+    example: "I love spending time with my family.",
+  },
 ];
 
 export default stubData;
