@@ -1,7 +1,9 @@
 import React, {useState, useEffect, useCallback} from "react";
 import Button from "../components/common/Button";
+import Modal from "../components/home/Modal";
 import Subject from "../components/home/Subject.jsx";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "../styles/Card.css"
 
 
@@ -9,7 +11,10 @@ const Card = () => {
     const [cards, setCards] = useState([]);
     const [MyWordsCount, setMyWordCount] = useState(0);
     const [selectedLanguage, setSelectedLanguage] = useState("TOTAL");
+    const [open,setOpen] = useState(false);
+    const [title,setTitle] = useState("");
     const baseUrl = "http://localhost:8080";
+    const navigate = useNavigate();
 
     
     
@@ -26,14 +31,22 @@ const Card = () => {
         console.log("API 호출 중 에러 발생했습니다.:",error);
     }
     },[selectedLanguage]);
-    const handleSelectChange = (event) => {
-        setSelectedLanguage(event.target.value);
-    };
+    
 
     useEffect(()=>{
         fetchData()
     },[fetchData])
 
+    const handleCardClick = (card) => {
+        console.log("Navigating with card: 선택"); // 디버깅용 로그 추가
+        navigate("/wordlist",{state : {cardId : card.id, language : card.language, apiType : "getList"}});
+    }
+    const handleMyWordListClick = (selectedLanguage) => {
+        navigate("/wordlist",{state : {language : selectedLanguage,apiType : "getMyList"}});
+    }
+    const handleSelectChange = (event) => {
+        setSelectedLanguage(event.target.value);
+    };
     const languages = {
         TOTAL: "전체",
         ENGLISH: "영어",
@@ -50,13 +63,21 @@ const Card = () => {
                         </option>
                     ))}
                 </select>
-                <Button text={"+"} type={"button"} name={"Add"} />
+                <Button text={"+"} type={"button"} name={"Add"} onClick={() => setOpen(true)}/>
+                
             </div>
             <div className="card_container">
-                {cards.map((item, index) => (
-                    <Subject key={index} title={`${item.title}`} quantity={`${item.count}`} />
+                {cards.map((card) => (
+                    <Subject 
+                    key={card.id} 
+                    title={`${card.title}`} 
+                    quantity={`${card.count}`} 
+                    onClick={() => handleCardClick(card)}/>
                 ))}
-                <Subject title={"추가한 \n단어"} quantity={MyWordsCount} />
+                <Subject 
+                title={"추가한 \n단어"} 
+                quantity={MyWordsCount} 
+                onClick = {() =>handleMyWordListClick(selectedLanguage)}/>
             </div>
         </div>
     );

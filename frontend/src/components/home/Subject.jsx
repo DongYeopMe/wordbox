@@ -1,9 +1,8 @@
-const Subject =({title,quantity}) =>{
+const Subject =({id,title,quantity,onClick}) =>{
     return(
-        <div className="card">
+        <div className="card" onClick={onClick}>
                 <span>{title}</span>
                 <span>{quantity}</span>
-                {/* <a> */}
         </div>
     )
 }

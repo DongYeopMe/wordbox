@@ -12,12 +12,12 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Login/>}/>
-        <Route path='/card' element={<Card/>}/>
+        <Route path='/' element={<Card/>}/>
+        <Route path='/login' element={<Login/>}/>
         <Route path='/quiz' element={<Quiz/>}/>
         <Route path='/addWord' element={<AddVoca/>}/>
         <Route path='/editWord' element={<EditVoca/>}/>
-        <Route path='/list' element={<WordList/>}/>
+        <Route path='/wordlist' element={<WordList/>}/>
       </Routes>
     </BrowserRouter>
   )
