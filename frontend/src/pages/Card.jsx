@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useCallback} from "react";
 import Button from "../components/common/Button";
-import Modal from "../components/home/Modal";
+import AddCardModal from "../components/home/AddCardModal";
 import Subject from "../components/home/Subject.jsx";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -11,12 +11,9 @@ const Card = () => {
     const [cards, setCards] = useState([]);
     const [MyWordsCount, setMyWordCount] = useState(0);
     const [selectedLanguage, setSelectedLanguage] = useState("TOTAL");
-    const [open,setOpen] = useState(false);
-    const [title,setTitle] = useState("");
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const baseUrl = "http://localhost:8080";
     const navigate = useNavigate();
-
-    
     
     const fetchData = useCallback(async () =>{
         try{
@@ -63,7 +60,10 @@ const Card = () => {
                         </option>
                     ))}
                 </select>
-                <Button text={"+"} type={"button"} name={"Add"} onClick={() => setOpen(true)}/>
+                <div>
+                    <Button text={"+"} type={"button"} name={"Add"} onClick={() => setIsModalOpen(true)} />
+                    {isModalOpen && <AddCardModal isModal={isModalOpen} setIsModal={setIsModalOpen} />}
+                </div>
                 
             </div>
             <div className="card_container">
