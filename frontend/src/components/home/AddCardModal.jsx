@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import "../../styles/modal.css";
+import "../../styles/addCardmodal.css";
 import axios from 'axios';
 
-const AddCardModal =({ isModal, setIsModal }) =>{
+const AddCardModal =({ isModal, setIsModal,fetchData }) =>{
     const [selectedLanguage,setSelectedLanguage] = useState("");
     const [title,setTitle] = useState("");
     const url = "http://localhost:8080/card/create";
@@ -18,11 +18,9 @@ const AddCardModal =({ isModal, setIsModal }) =>{
         language : selectedLanguage,
         title : title
     };
-    console.log("📌 생성 요청 데이터:", data); // ✅ 디버깅용 로그
-
         axios.post(url,data)
         .then((response) => {
-        console.log("요청 성공!!",response.data);
+        fetchData();
         setIsModal(false);
         })
         .catch((error)=> {
@@ -32,14 +30,15 @@ const AddCardModal =({ isModal, setIsModal }) =>{
     if (!isModal) return null;
 
     return (
-        <div className="modal-overlay">
-            <div className="modal-content">
+        <div className="card-modal-overlay">
+            <div className="card-modal-content">
                 <header className='modal-header'>
                     <h2 className='head'>카드 추가</h2>
                 </header>
                 <main>
                     <select
                         value={selectedLanguage}
+                        className='card-language'
                         onChange={(e) => setSelectedLanguage(e.target.value)}
                     >
                         <option value="">선택</option>
@@ -55,8 +54,8 @@ const AddCardModal =({ isModal, setIsModal }) =>{
                     />
                 </main>
                 <footer className='footer'>
-                    <button className="create-btn" onClick={onClickCreate}>추가</button>
-                    <button className="cancel-btn" onClick={onClickClose}>취소</button>
+                    <button className="card-create-btn" onClick={onClickCreate}>추가</button>
+                    <button className="card-cancel-btn" onClick={onClickClose}>취소</button>
                 </footer>
             </div>
         </div>

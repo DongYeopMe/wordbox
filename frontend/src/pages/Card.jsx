@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useCallback} from "react";
 import Button from "../components/common/Button";
 import AddCardModal from "../components/home/AddCardModal";
+import AddWordModal from "../components/home/AddWordModal";
 import Subject from "../components/home/Subject.jsx";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +12,8 @@ const Card = () => {
     const [cards, setCards] = useState([]);
     const [MyWordsCount, setMyWordCount] = useState(0);
     const [selectedLanguage, setSelectedLanguage] = useState("TOTAL");
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isCardModalOpen, setIsCardModalOpen] = useState(false);
+    const [isWordModalOpen, setIsWordModalOpen] = useState(false);
     const baseUrl = "http://localhost:8080";
     const navigate = useNavigate();
     
@@ -22,7 +24,7 @@ const Card = () => {
                axios.get(baseUrl + "/word/getMyWordCount", {params : {language : selectedLanguage}})
             ]);
             setCards(cardsResponse.data.data);
-            setMyWordCount(myWordsResponse.data.data)
+            setMyWordCount(myWordsResponse.data.data);
 
     } catch (error){
         console.log("API 호출 중 에러 발생했습니다.:",error);
@@ -53,7 +55,7 @@ const Card = () => {
     return (
         <div className="container">
             <div className="category_container">
-                <select value={selectedLanguage} onChange={handleSelectChange}>
+                <select  className="language_select"value={selectedLanguage} onChange={handleSelectChange}>
                     {Object.entries(languages).map(([key, value]) => (
                         <option key={key} value={key}>
                             {value}
@@ -61,8 +63,11 @@ const Card = () => {
                     ))}
                 </select>
                 <div>
-                    <Button text={"+"} type={"button"} name={"Add"} onClick={() => setIsModalOpen(true)} />
-                    {isModalOpen && <AddCardModal isModal={isModalOpen} setIsModal={setIsModalOpen} />}
+                    <Button text={"+"} type={"button"} name={"Add"} onClick={() => setIsCardModalOpen(true)} />
+                    {isCardModalOpen && <AddCardModal isModal={isCardModalOpen} setIsModal={setIsCardModalOpen} fetchData={fetchData}/>}
+                    <Button text={"단어 추가"} type={"button"} name={"addword"}
+                    onClick={()=> setIsWordModalOpen(true)}/>
+                    {isWordModalOpen && <AddWordModal isModal={isWordModalOpen} setIsModal={setIsWordModalOpen} checklist={cards}/> }
                 </div>
                 
             </div>

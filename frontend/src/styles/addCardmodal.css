@@ -1,4 +1,4 @@
-.modal-overlay {
+.card-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -9,13 +9,22 @@
     justify-content: center;
     align-items: center;
 }
-.modal-content {
+.card-modal-content {
     background: white;
     padding: 20px;
     border-radius: 8px;
     width: 300px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.card-language{
+    width: 30%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 13px;
+    transition: all 0.2s ease-in-out;
 }
 
 .modal-input {
@@ -34,7 +43,7 @@
 }
 
 
-.create-btn, .cancel-btn {
+.card-create-btn, .card-cancel-btn {
     margin-top: 20px;
     width: 60px;
     padding: 12px;
