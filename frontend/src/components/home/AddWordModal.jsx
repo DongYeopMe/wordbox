@@ -1,13 +1,14 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import "../../styles/addVocamodal.css";
-const AddWordModal = ({isModal, setIsModal, checklist}) => {
+const AddWordModal = ({isModal, setIsModal, checklist,fetchData}) => {
     const [item,setItem] = useState("");
     const [mean,setMean] = useState("");
     const [example,setExample] = useState("");
     const [language,setLanguage] = useState("");
     const [titles,setTitles] = useState([]);
-    const url = "http://localhost:8080/word/create";
+    const [filteredChecklist, setFilteredChecklist] = useState(checklist);
+    const url = "http://localhost:8080/word/add";
 
     function onClickClose(){
         setIsModal(false);
@@ -21,6 +22,7 @@ const AddWordModal = ({isModal, setIsModal, checklist}) => {
             titles : titles
         };
         axios.post(url,data).then((response) =>{
+            fetchData();
             setIsModal(false);
         }).catch((error)=>{
             console.error("새로운 카드 생성 실패",error);
@@ -33,6 +35,15 @@ const AddWordModal = ({isModal, setIsModal, checklist}) => {
                 : [...prevTitles, title] // 체크 시 추가
         );
     };
+
+    useEffect(() => {
+        if (language === "") {
+            setFilteredChecklist(checklist);
+        } else {
+            setFilteredChecklist(checklist.filter(card => card.language === language));
+        }
+    },[language,checklist])
+
     if(!isModal) return null;
 
 
@@ -53,11 +64,12 @@ const AddWordModal = ({isModal, setIsModal, checklist}) => {
                         <option value="ENGLISH">영어</option>
                     </select>
                     <input type="text" placeholder="단어" className="word-input" value={item} onChange={(e)=> setItem(e.target.value)}/>
-                    <input type="text" placeholder="뜻" className="mean-input" value={mean} onChange={(e)=> setItem(e.target.value)}/>
-                    <input type="text" placeholder="예문" className="example-input" value={example} onChange={(e)=> setItem(e.target.value)}/>
+                    <input type="text" placeholder="뜻" className="mean-input" value={mean} onChange={(e)=> setMean(e.target.value)}/>
+                    <input type="text" placeholder="예문" className="example-input" value={example} onChange={(e)=> setExample(e.target.value)}/>
                     <label className="card-title">선택할 카드</label>
-                    {checklist.map((card) => (
-                        <div key={card.id} className="checkbox-container">
+                    <div className="checkbox-container">
+                    {filteredChecklist.map((card) => (
+                        <div key={card.id}>
                             <input 
                                 type="checkbox"
                                 id={card.title}
@@ -68,7 +80,7 @@ const AddWordModal = ({isModal, setIsModal, checklist}) => {
                             <label htmlFor={card.title}>{card.title}</label>
                         </div>
                     ))}
-
+                    </div>
                 </main>
                 <footer className='footer'>
                     <button className="word-create-btn" onClick={onClickCreate}>추가</button>

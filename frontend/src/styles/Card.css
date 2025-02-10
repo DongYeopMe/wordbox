@@ -9,16 +9,15 @@
 .category_container{
     display: flex;
     flex-direction: row;
-    padding: 10px;
+    padding: 20px;
     margin-bottom : 30px;
     gap: 50px;
 }
 
 .Add_Btn {
-    width: 40px;
+    width: 95px;
     height: 40px;
     padding: 10px 20px;
-    font-size: 16px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,7 +27,14 @@
     background-color: #ffffff;
     color: #333;
 }
-
+.addword_Btn{
+    width: 95px;
+    height: 40px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #ffffff;
+    cursor: pointer;
+}
 .card_container {
     display: flex;
     justify-content: center;
@@ -59,6 +65,18 @@
     white-space: pre-line;
     font-size: 14px;
 }
+.card.english {
+    background-color: #FFD580;
+    color: black;
+}
 
+.card.japanese {
+    background-color: #C1F0C1;
+    color: black;
+}
+.card.nomal {
+    background-color: #f9f9f9;
+    color: black;
+}
 
 

@@ -4,8 +4,6 @@ import {BrowserRouter,Routes,Route} from 'react-router-dom';
 import Login from './pages/Login.jsx'
 import Card from './pages/Card.jsx'
 import Quiz from './pages/Quiz.jsx'
-import AddVoca from './pages/addVoca.jsx';
-import EditVoca from './pages/editVoca.jsx';
 import WordList from './pages/WordList.jsx';
 
 function App() {
@@ -15,8 +13,6 @@ function App() {
         <Route path='/' element={<Card/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/quiz' element={<Quiz/>}/>
-        <Route path='/addWord' element={<AddVoca/>}/>
-        <Route path='/editWord' element={<EditVoca/>}/>
         <Route path='/wordlist' element={<WordList/>}/>
       </Routes>
     </BrowserRouter>

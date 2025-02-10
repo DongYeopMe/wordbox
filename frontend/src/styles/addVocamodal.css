@@ -1,0 +1,100 @@
+/* ✅ 모달 전체 배경 (어두운 오버레이) */
+.word-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ✅ 모달 창 */
+.word-modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    width: 400px;
+    max-width: 90%;
+    text-align: center;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+}
+.word-select {
+    width: 30%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+/* ✅ 모달 헤더 */
+.word-modal-header {
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+/* ✅ 입력 필드 스타일 */
+.word-input,
+.mean-input,
+.example-input{
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.2s ease-in-out;
+}
+
+/* ✅ 모달 버튼 스타일 */
+.word-create-btn,
+.word-cancel-btn {
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    transition: all 0.2s ease-in-out;
+}
+.card-title{
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #ddd;
+}
+.checkbox-container{
+    display: flex;
+    max-height: 100px;
+    margin-bottom: 40px;
+}
+.word-create-btn {
+    background: #91d669;
+    color: white;
+}
+
+.word-create-btn:hover {
+    background: #45a049;
+}
+.word-cancel-btn {
+    background: #91d669;
+    color: white;
+}
+
+.word-cancel-btn:hover {
+    background: #45a049;
+}

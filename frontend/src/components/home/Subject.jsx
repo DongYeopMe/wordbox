@@ -1,6 +1,6 @@
-const Subject =({id,title,quantity,onClick}) =>{
+const Subject =({id,title,quantity,onClick,language = "nomal"}) =>{
     return(
-        <div className="card" onClick={onClick}>
+        <div className={`card ${language.toLowerCase()}`} onClick={onClick}>
                 <span>{title}</span>
                 <span>{quantity}</span>
         </div>

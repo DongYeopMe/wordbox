@@ -37,8 +37,7 @@ const Card = () => {
     },[fetchData])
 
     const handleCardClick = (card) => {
-        console.log("Navigating with card: 선택"); // 디버깅용 로그 추가
-        navigate("/wordlist",{state : {cardId : card.id, language : card.language, apiType : "getList"}});
+        navigate("/wordlist",{state : {cardId : card.id, language : card.language, apiType : "getList", title: card.title}});
     }
     const handleMyWordListClick = (selectedLanguage) => {
         navigate("/wordlist",{state : {language : selectedLanguage,apiType : "getMyList"}});
@@ -63,11 +62,12 @@ const Card = () => {
                     ))}
                 </select>
                 <div>
-                    <Button text={"+"} type={"button"} name={"Add"} onClick={() => setIsCardModalOpen(true)} />
+                    <Button text={"카드 추가"} type={"button"} name={"Add"} onClick={() => setIsCardModalOpen(true)} />
                     {isCardModalOpen && <AddCardModal isModal={isCardModalOpen} setIsModal={setIsCardModalOpen} fetchData={fetchData}/>}
                     <Button text={"단어 추가"} type={"button"} name={"addword"}
                     onClick={()=> setIsWordModalOpen(true)}/>
-                    {isWordModalOpen && <AddWordModal isModal={isWordModalOpen} setIsModal={setIsWordModalOpen} checklist={cards}/> }
+                    {isWordModalOpen && <AddWordModal isModal={isWordModalOpen} setIsModal={setIsWordModalOpen} checklist={cards} 
+                    fetchData={fetchData}/> }
                 </div>
                 
             </div>
@@ -77,12 +77,16 @@ const Card = () => {
                     key={card.id} 
                     title={`${card.title}`} 
                     quantity={`${card.count}`} 
-                    onClick={() => handleCardClick(card)}/>
+                    onClick={() => handleCardClick(card)}
+                    language={card.language}/>
                 ))}
-                <Subject 
-                title={"추가한 \n단어"} 
-                quantity={MyWordsCount} 
-                onClick = {() =>handleMyWordListClick(selectedLanguage)}/>
+                {selectedLanguage !== "TOTAL" && (
+                    <Subject 
+                    title={"추가한 \n단어"} 
+                    quantity={MyWordsCount} 
+                    onClick = {() =>handleMyWordListClick(selectedLanguage)}
+                    />
+                )}
             </div>
         </div>
     );

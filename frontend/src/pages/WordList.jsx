@@ -11,7 +11,7 @@ const WordList = () => {
     const [selectedView, setselectedView] = useState("normal");
     const [page,setPage]= useState(1);
     const [wordList, setWordList] = useState([]);
-    const { cardId, language, apiType } = location.state || { cardId: null, language: "TOTAL", apiType: "getList" };
+    const { cardId, language, apiType,title } = location.state || { cardId: null, language: "TOTAL", apiType: "getList",title: "내가 추가한 단어" };
     const [currentWords, setcurrentWords] = useState(wordList);
     
     const wordPageSize = 10;//페이지당 보여줄 단어 갯수
@@ -50,15 +50,14 @@ const WordList = () => {
         <div className="container">
             <header className="header">
                 <div className="header_inner">
-                    <h1>카드 이름</h1>
+                    <h1>{title}</h1>
                     <div className="nav">
-                    <select name="view_control" value={selectedView} onChange={handleSelectChange}>
+                    <select className="view_control" value={selectedView} onChange={handleSelectChange}>
                     <option value="normal">기본</option>
                     <option value="hide_mean">단어</option>
                     <option value="hide_word">뜻</option>
                     </select>
-                    <Button text={"단어 추가"} type={"text"} name={"addword"} />
-                </div>
+                    </div>
                 </div>
             </header>
             <div className="content">
