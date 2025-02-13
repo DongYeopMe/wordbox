@@ -3,6 +3,7 @@ import Button from "../components/common/Button";
 import { useLocation } from 'react-router-dom';
 import ScrollToTop from "../components/home/ScrollToTop.jsx"
 import Pagination from "react-js-pagination";
+import UpdateWordModal from "../components/home/UpdateWordModal.jsx"
 import "../styles/WordList.css";
 import axios from "axios";
 
@@ -11,9 +12,12 @@ const WordList = () => {
     const [selectedView, setselectedView] = useState("normal");
     const [page,setPage]= useState(1);
     const [wordList, setWordList] = useState([]);
-    const { cardId, language, apiType,title } = location.state || { cardId: null, language: "TOTAL", apiType: "getList",title: "내가 추가한 단어" };
+    const { cardId, language, apiType,title,cardtitles } = location.state || { cardId: null, language: "TOTAL", apiType: "getList",title: "내가 추가한 단어", cardtitles:[] };
     const [currentWords, setcurrentWords] = useState(wordList);
-    
+    const [isUpdateWordModal,setIsUpdateWordModal] = useState(false);
+    const [clickedWord,setClickedWord] = useState(null);
+
+
     const wordPageSize = 10;//페이지당 보여줄 단어 갯수
     // 현재 페이지의 단어 리스트 계산
     const indexOfLastWord = page* wordPageSize ;
@@ -32,10 +36,24 @@ const WordList = () => {
         };
         getData();
     }, [cardId, language,apiType]);
+
+
     useEffect(() => {
         setcurrentWords(wordList.slice(indexOfFirstWord,indexOfLastWord));
     },[wordList,page])
     
+    const handleWordClick = async(word) => {
+        try{
+            const response = await axios.get(`${baseUrl}/word/getWordTitles`,{
+                params : {wordId : word.id}
+            });
+            const exword = {...word, titles:response.data.data};
+            setClickedWord(exword);
+            setIsUpdateWordModal(true);
+        } catch(error){
+            console.error("titles 가져오기 실패했습니다.",error);
+        }
+    }
 
     const handlePageChange = (number) =>{
         setPage(number);
@@ -52,28 +70,28 @@ const WordList = () => {
                 <div className="header_inner">
                     <h1>{title}</h1>
                     <div className="nav">
-                    <select className="view_control" value={selectedView} onChange={handleSelectChange}>
-                    <option value="normal">기본</option>
-                    <option value="hide_mean">단어</option>
-                    <option value="hide_word">뜻</option>
-                    </select>
+                        <select className="view_control" value={selectedView} onChange={handleSelectChange}>
+                            <option value="normal">기본</option>
+                            <option value="hide_mean">단어</option>
+                            <option value="hide_word">뜻</option>
+                        </select>
                     </div>
                 </div>
             </header>
             <div className="content">
                 {currentWords.length > 0 ? (
-                    currentWords.map((item) => (
-                        <div key={item.id} className="word_space">
-                            <div className="word">
+                    currentWords.map((word) => (
+                        <div key={word.id} className="word_space">
+                            <div className="word" onClick={() => handleWordClick(word)}>
                                 <span className={selectedView === "hide_word" ? "hide" : "title"}>
-                                    {item.item}
+                                    {word.item}
                                 </span>
                                 <span className={selectedView === "hide_mean" ? "hide" : "mean"}>
-                                    {item.mean}
+                                    {word.mean}
                                 </span>
                             </div>
                             <div className="example">
-                                <p>{item.example}</p>
+                                <p>{word.example}</p>
                             </div>
                         </div>
                     ))
@@ -81,6 +99,14 @@ const WordList = () => {
                     <p className="no-data">단어 목록이 없습니다.</p>
                 )}
             </div>
+            {isUpdateWordModal && clickedWord && (
+                <UpdateWordModal 
+                isModal={isUpdateWordModal} 
+                setIsModal={setIsUpdateWordModal}
+                word={clickedWord}
+                cardtitles={cardtitles}
+                />
+            )}
             <Pagination
                 activePage={page} // 현재 페이지
                 itemsCountPerPage={wordPageSize} // 한 페이지에 보여줄 개수

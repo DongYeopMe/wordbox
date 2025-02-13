@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "../../styles/addCardmodal.css";
+import "../../styles/AddCardmodal.css";
 import axios from 'axios';
 
 const AddCardModal =({ isModal, setIsModal,fetchData }) =>{

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState,useEffect } from "react";
-import "../../styles/addVocamodal.css";
+import "../../styles/AddVocamodal.css";
 const AddWordModal = ({isModal, setIsModal, checklist,fetchData}) => {
     const [item,setItem] = useState("");
     const [mean,setMean] = useState("");
@@ -14,14 +14,14 @@ const AddWordModal = ({isModal, setIsModal, checklist,fetchData}) => {
         setIsModal(false);
     }
     function onClickCreate(){
-        const data = {
+        const request = {
             item : item,
             mean : mean,
             example : example,
             language : language,
             titles : titles
         };
-        axios.post(url,data).then((response) =>{
+        axios.post(url,request).then((response) =>{
             fetchData();
             setIsModal(false);
         }).catch((error)=>{

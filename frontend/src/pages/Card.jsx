@@ -17,6 +17,7 @@ const Card = () => {
     const baseUrl = "http://localhost:8080";
     const navigate = useNavigate();
     
+    
     const fetchData = useCallback(async () =>{
         try{
             const [cardsResponse, myWordsResponse] = await Promise.all([
@@ -37,10 +38,17 @@ const Card = () => {
     },[fetchData])
 
     const handleCardClick = (card) => {
-        navigate("/wordlist",{state : {cardId : card.id, language : card.language, apiType : "getList", title: card.title}});
+        const filteredTitles = cards
+        .filter(c => c.language === card.language)
+        .map(c => c.title);
+        navigate("/wordlist",{state : {cardId : card.id, language : card.language, apiType : "getList", title: card.title, cardtitles: filteredTitles}});
     }
     const handleMyWordListClick = (selectedLanguage) => {
-        navigate("/wordlist",{state : {language : selectedLanguage,apiType : "getMyList"}});
+        const filteredTitles = cards
+        .filter(c => c.language === selectedLanguage)
+        .map(c => c.title);
+        
+        navigate("/wordlist",{state : {language : selectedLanguage,apiType : "getMyList",cardtitles: filteredTitles}});
     }
     const handleSelectChange = (event) => {
         setSelectedLanguage(event.target.value);
@@ -61,13 +69,13 @@ const Card = () => {
                         </option>
                     ))}
                 </select>
-                <div>
+                <div className="api_container">
                     <Button text={"카드 추가"} type={"button"} name={"Add"} onClick={() => setIsCardModalOpen(true)} />
                     {isCardModalOpen && <AddCardModal isModal={isCardModalOpen} setIsModal={setIsCardModalOpen} fetchData={fetchData}/>}
                     <Button text={"단어 추가"} type={"button"} name={"addword"}
                     onClick={()=> setIsWordModalOpen(true)}/>
-                    {isWordModalOpen && <AddWordModal isModal={isWordModalOpen} setIsModal={setIsWordModalOpen} checklist={cards} 
-                    fetchData={fetchData}/> }
+                    {isWordModalOpen && <AddWordModal isModal={isWordModalOpen} setIsModal={setIsWordModalOpen} checklist={cards}
+                    fetchData={fetchData}/>}
                 </div>
                 
             </div>
@@ -79,6 +87,7 @@ const Card = () => {
                     quantity={`${card.count}`} 
                     onClick={() => handleCardClick(card)}
                     language={card.language}/>
+                    
                 ))}
                 {selectedLanguage !== "TOTAL" && (
                     <Subject 
