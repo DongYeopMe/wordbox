@@ -53,6 +53,8 @@ const Card = () => {
     const handleSelectChange = (event) => {
         setSelectedLanguage(event.target.value);
     };
+
+    
     const languages = {
         TOTAL: "전체",
         ENGLISH: "영어",
@@ -76,6 +78,7 @@ const Card = () => {
                     onClick={()=> setIsWordModalOpen(true)}/>
                     {isWordModalOpen && <AddWordModal isModal={isWordModalOpen} setIsModal={setIsWordModalOpen} checklist={cards}
                     fetchData={fetchData}/>}
+
                 </div>
                 
             </div>

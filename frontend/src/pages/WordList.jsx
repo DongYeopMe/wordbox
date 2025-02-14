@@ -6,6 +6,7 @@ import Pagination from "react-js-pagination";
 import UpdateWordModal from "../components/home/UpdateWordModal.jsx"
 import "../styles/WordList.css";
 import axios from "axios";
+import ButtonToBack from "../components/home/ButtonToBack.jsx";
 
 const WordList = () => {
     const location = useLocation();
@@ -36,7 +37,16 @@ const WordList = () => {
         };
         getData();
     }, [cardId, language,apiType]);
-
+    const refreshWordList = async () => {
+    try {
+        const endpoint = apiType === "getList" ? "/word/getList" : "/word/getMyList"; 
+        const params = apiType === "getList" ? { language, cardId } : { language };
+        const response = await axios.get(`${baseUrl}${endpoint}`, { params });
+        setWordList(response.data.data.content);
+    } catch (error) {
+        console.error("단어 목록 갱신 실패:", error);
+    }
+};
 
     useEffect(() => {
         setcurrentWords(wordList.slice(indexOfFirstWord,indexOfLastWord));
@@ -63,6 +73,7 @@ const WordList = () => {
     const handleSelectChange = (event) => {
         setselectedView(event.target.value);
     };
+
 
     return (
         <div className="container">
@@ -105,6 +116,7 @@ const WordList = () => {
                 setIsModal={setIsUpdateWordModal}
                 word={clickedWord}
                 cardtitles={cardtitles}
+                refreshWordList={refreshWordList}
                 />
             )}
             <Pagination
@@ -117,6 +129,7 @@ const WordList = () => {
                 itemClass="page-item" // li 태그의 클래스
                 linkClass="page-link" // a 태그의 클래스
             />
+            <ButtonToBack/>
             <ScrollToTop/>
         </div>
     );

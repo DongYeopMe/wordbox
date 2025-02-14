@@ -1,17 +1,17 @@
 import axios from "axios";
 import { useState,useEffect } from "react";
 import PropTypes from 'prop-types';
+import "../../styles/UpdateWordModal.css";
 
-
-const UpdateWordModal = ({isModal,setIsModal,word,cardtitles}) =>{
+const UpdateWordModal = ({isModal,setIsModal,word,cardtitles,refreshWordList}) =>{
     const [item,setItem] = useState(word.item);
     const [mean,setMean] = useState(word.mean);
     const [example,setExample] = useState(word.example);
     const [language,setLanguage] = useState(word.language);
     const [titles,setTitles] = useState(word.titles);
     const [allcardtitles,setallcardtitles] = useState(cardtitles);
-    const url = "http://localhost:8080/word/edit";
-
+    const editurl = "http://localhost:8080/word/edit";
+    const deleteurl = "http://localhost:8080/word/delete";
     function onClickClose(){
         setIsModal(false);
     }
@@ -24,11 +24,12 @@ const UpdateWordModal = ({isModal,setIsModal,word,cardtitles}) =>{
             language : language,
             titles : titles
             };
-            axios.patch(url,request,{
+            axios.patch(editurl,request,{
             params : {wordId : word.id}
         })
         .then((response) =>{
             setIsModal(false);
+            refreshWordList();
         })
             
         } catch(error){
@@ -43,13 +44,26 @@ const UpdateWordModal = ({isModal,setIsModal,word,cardtitles}) =>{
                 : [...prevTitles, title] // 체크 시 추가
         );
     };
-
+    const handledelete = (word) =>{
+        if (window.confirm("삭제 하시겠습니까??")) {
+            try{
+                axios.delete(deleteurl,{params : {wordId : word.id}})
+            .then((response) =>{
+                setIsModal(false);
+                refreshWordList();
+            })
+            } catch(error){
+                console.error("단어 삭제 실패",error);
+            }
+        }
+    }
 
     return (
         <div className="word-modal-overlay">
             <div className="word-modal-content">
                 <header className="modal-header">
                     <h2 className="head">단어 수정</h2>
+                    <button className="delete_btn" onClick={()=>handledelete(word)}>삭제</button>
                 </header>
                 <main>
                     <select className="word-select" value={language} disabled>

@@ -105,3 +105,20 @@ main {
 .word-cancel-btn:hover {
     background: #45a049;
 }
+.delete_btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background: #ff4d4f;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s ease-in-out;
+}
+
+.delete_btn:hover {
+    background: #d9363e;
+}

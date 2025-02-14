@@ -1,0 +1,12 @@
+.update_btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #333;
+    cursor: pointer;
+
+}
+
+.update_btn:hover {
+    color: #555;
+}
