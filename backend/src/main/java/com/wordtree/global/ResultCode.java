@@ -20,7 +20,9 @@ public enum ResultCode {
     WORD_ADD_SUCCESS(200, "단어 추가 성공했습니다."),
     WORD_EDIT_SUCCESS(200, "단어 수정 완료"),
     WORD_GET_SUCCESS(200, "단어 가져오기 완료"),
-    WORDLIST_GET_SUCCESS(200, "단어 리스트 가져오기 완료");
+    WORDLIST_GET_SUCCESS(200, "단어 리스트 가져오기 완료"),
+    WORDTITLES_GET_SUCCESS(200, "단어 카드이름들 가져오기 완료"),
+    ;
 
 
 

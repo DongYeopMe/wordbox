@@ -6,7 +6,9 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+  jwt:
+    secret: yrKE36QRt5aRNqtfTdTwhVijbIB0lNQDpPxcdoqdEPPyASnDHFrsHjkr4pcHKhKh

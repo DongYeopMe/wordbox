@@ -1,10 +1,8 @@
 package com.wordtree.member;
 
-import com.wordtree.member.dto.LoginForm;
 import com.wordtree.member.dto.MemberRequest;
 import com.wordtree.member.dto.MemberResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

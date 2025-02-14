@@ -1,7 +1,7 @@
 package com.wordtree.card;
 
 import com.wordtree.global.jwt.CustomUserDetailsService;
-import com.wordtree.global.jwt.JWTUtil;
+import com.wordtree.member.MemberRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,12 +14,13 @@ import java.util.List;
 public class CardService {
     private final CardRepository cardRepository;
     private final CustomUserDetailsService customUserDetailsService;
+    private final MemberRepository memberRepository;
     @Transactional
     public void createCard(CardRequest cardRequest) {
 
         Card card =Card.requestConvert(cardRequest);
         card.setMember(customUserDetailsService.getAuthenticatedEntity());
-
+//        card.setMember(memberRepository.findByUserId("exex1"));
         cardRepository.save(card);
     }
     @Transactional

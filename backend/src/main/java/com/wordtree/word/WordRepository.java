@@ -10,6 +10,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface WordRepository extends JpaRepository<Word,Long> {
 
@@ -21,4 +23,10 @@ public interface WordRepository extends JpaRepository<Word,Long> {
     @Query("SELECT w FROM Word w WHERE w.member = :member AND w.language = :language")
     Page<Word> findMyWords(@Param("member")Member member, @Param("language") Language language,Pageable pageable);
 
+    @Query("SELECT COUNT(w) FROM Word w WHERE w.member = :member AND w.language = :language")
+    int findMyWordCount(@Param("member")Member member,@Param("language") Language language);
+    @Query("SELECT COUNT(w) FROM Word w WHERE w.member = :member")
+    int findMyAllWordCount(@Param("member")Member member);
+    @Query("SELECT c.title FROM Card c JOIN c.cardWords cw WHERE cw.word.id = :wordId")
+    List<String> findTitlesByWord(@Param("wordId") Long wordId);
 }
