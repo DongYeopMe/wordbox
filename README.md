@@ -12,4 +12,4 @@ Spring Boot,Java, MySql, React, JavaScript, Vite
 *  단어 및 뜻 가리기
 
 ## 설명
-[블로그](https://app.gitbook.com/o/XNLuTJOw1PkfKRJPgzDI/s/xLUNoRjTnfNOdZ4D6eWy/~/changes/124/undefined-1/undefined-2/undefined-1)
+[블로그](https://dongyeopme.gitbook.io/yeop-blog/undefined-1/undefined-2/undefined-1)
