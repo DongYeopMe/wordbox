@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useMemo } from "react";
 import Button from "../components/common/Button";
 import { useLocation } from 'react-router-dom';
 import ScrollToTop from "../components/home/ScrollToTop.jsx"
@@ -12,13 +12,13 @@ const WordList = () => {
     const location = useLocation();
     const [selectedView, setselectedView] = useState("normal");
     const [page,setPage]= useState(1);
+    const [totalItems, setTotalItems] = useState(0);
     const [wordList, setWordList] = useState([]);
     const { cardId, language, apiType,title,cardtitles } = location.state || { cardId: null, language: "TOTAL", apiType: "getList",title: "내가 추가한 단어", cardtitles:[] };
-    const [currentWords, setcurrentWords] = useState(wordList);
     const [isUpdateWordModal,setIsUpdateWordModal] = useState(false);
     const [clickedWord,setClickedWord] = useState(null);
 
-
+    
     const wordPageSize = 10;//페이지당 보여줄 단어 갯수
     // 현재 페이지의 단어 리스트 계산
     const indexOfLastWord = page* wordPageSize ;
@@ -28,29 +28,36 @@ const WordList = () => {
         const getData = async () => {
             try {
                 const endpoint = apiType === "getList" ? "/word/getList" : "/word/getMyList"; // API 종류 선택
-                const params = apiType === "getList" ? { language, cardId } : { language };
+                const params = apiType === "getList" ? 
+                { language,
+                  cardId,
+                  page,
+                  size: wordPageSize } :
+                { language, 
+                  page,
+                  size: wordPageSize
+                };
                 const response = await axios.get(`${baseUrl}${endpoint}`, {params});
                 setWordList(response.data.data.content);
+                setTotalItems(response.data.data.totalElements);
             } catch (error) {
                 console.error("데이터 가져오기 오류:", error);
             }
         };
         getData();
-    }, [cardId, language,apiType]);
+    }, [page,cardId, language,apiType]);
     const refreshWordList = async () => {
     try {
         const endpoint = apiType === "getList" ? "/word/getList" : "/word/getMyList"; 
         const params = apiType === "getList" ? { language, cardId } : { language };
         const response = await axios.get(`${baseUrl}${endpoint}`, { params });
         setWordList(response.data.data.content);
+        setTotalItems(response.data.data.totalElements);
     } catch (error) {
         console.error("단어 목록 갱신 실패:", error);
     }
-};
+    };
 
-    useEffect(() => {
-        setcurrentWords(wordList.slice(indexOfFirstWord,indexOfLastWord));
-    },[wordList,page])
     
     const handleWordClick = async(word) => {
         try{
@@ -65,8 +72,8 @@ const WordList = () => {
         }
     }
 
-    const handlePageChange = (number) =>{
-        setPage(number);
+    const handlePageChange = (pageNumber) =>{
+        setPage(pageNumber);
         window.scrollTo(0, 320);
     }
 
@@ -90,8 +97,8 @@ const WordList = () => {
                 </div>
             </header>
             <div className="content">
-                {currentWords.length > 0 ? (
-                    currentWords.map((word) => (
+                {wordList.length > 0 ? (
+                    wordList.map((word) => (
                         <div key={word.id} className="word_space">
                             <div className="word" onClick={() => handleWordClick(word)}>
                                 <span className={selectedView === "hide_word" ? "hide" : "title"}>
@@ -122,7 +129,7 @@ const WordList = () => {
             <Pagination
                 activePage={page} // 현재 페이지
                 itemsCountPerPage={wordPageSize} // 한 페이지에 보여줄 개수
-                totalItemsCount={wordList.length} // 전체 데이터 개수
+                totalItemsCount={totalItems} // 전체 데이터 개수
                 pageRangeDisplayed={5} // 페이지 버튼 표시 개수
                 onChange={handlePageChange} // 페이지 변경 이벤트
                 innerClass="pagination" // ul 태그의 클래스
