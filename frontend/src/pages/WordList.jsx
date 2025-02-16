@@ -17,12 +17,7 @@ const WordList = () => {
     const { cardId, language, apiType,title,cardtitles } = location.state || { cardId: null, language: "TOTAL", apiType: "getList",title: "내가 추가한 단어", cardtitles:[] };
     const [isUpdateWordModal,setIsUpdateWordModal] = useState(false);
     const [clickedWord,setClickedWord] = useState(null);
-
-    
     const wordPageSize = 10;//페이지당 보여줄 단어 갯수
-    // 현재 페이지의 단어 리스트 계산
-    const indexOfLastWord = page* wordPageSize ;
-    const indexOfFirstWord = indexOfLastWord- wordPageSize;
     const baseUrl = "http://localhost:8080"; 
     useEffect(() => {
         const getData = async () => {
