@@ -1,11 +1,10 @@
 # 개인 단어장 앱
 
-
-https://github.com/user-attachments/assets/c67f79e2-4df5-465e-96e6-4cd6ba2485f4
-
+https://github.com/user-attachments/assets/5df7eff6-2884-41cf-a6d2-c08c177a29b5
 
 
-https://github.com/user-attachments/assets/fd7eb744-65c9-4976-9969-523cfb7b24cd
+https://github.com/user-attachments/assets/db37d958-2ad0-484d-98ee-4ae918b07b02
+
 
 
 
