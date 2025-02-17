@@ -1,5 +1,15 @@
 # 개인 단어장 앱
 
+
+https://github.com/user-attachments/assets/c67f79e2-4df5-465e-96e6-4cd6ba2485f4
+
+
+
+https://github.com/user-attachments/assets/fd7eb744-65c9-4976-9969-523cfb7b24cd
+
+
+
+
 프로젝트 명 : 개인 단어장 앱
 개발 기간 : 2025.01 ~ 지속
 프로젝트 목적 : 개인 언어 학습을 위한 단어 카드 및 학습 목적
