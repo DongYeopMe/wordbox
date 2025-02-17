@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,5 +31,9 @@ public interface CardRepository extends JpaRepository<Card,Long> {
     @Query("UPDATE Card c SET c.count = c.count - 1 WHERE c.title IN :titles AND c.language = :language")
     void decrementCardCounts(@Param("titles") List<String> titles,@Param("language") Language language);
 
+    @Modifying
+    @Transactional
+    @Query("UPDATE Card c SET c.count = c.count - 1 WHERE c.id IN :cardIds AND c.count > 0")
+    void decrementCountsByCardIds(@Param("cardIds") List<Long> cardIds);
 
 }

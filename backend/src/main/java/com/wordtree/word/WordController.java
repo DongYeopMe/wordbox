@@ -60,6 +60,11 @@ public class WordController {
         List<String> response= wordService.getWordTitles(wordId);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.WORDTITLES_GET_SUCCESS,response));
     }
+    @DeleteMapping("delete")
+    public ResponseEntity<Object> deleteWord(@RequestParam Long wordId){
+        wordService.deleteWord(wordId);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.WORD_DELETE_SUCCESS));
+    }
 
 
 

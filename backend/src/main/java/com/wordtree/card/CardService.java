@@ -15,6 +15,7 @@ public class CardService {
     private final CardRepository cardRepository;
     private final CustomUserDetailsService customUserDetailsService;
     private final MemberRepository memberRepository;
+    private final CardWordRepository cardWordRepository;
     @Transactional
     public void createCard(CardRequest cardRequest) {
 
@@ -40,5 +41,10 @@ public class CardService {
 
     public Card getOne(CardRequest cardRequest) {
         return cardRepository.findCardByLanguageTitle(cardRequest.getLanguage(),cardRequest.getTitle());
+    }
+
+    public void deleteCard(Long cardId) {
+        cardWordRepository.deleteByCardId(cardId);
+        cardRepository.deleteById(cardId);
     }
 }

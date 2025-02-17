@@ -22,6 +22,8 @@ public enum ResultCode {
     WORD_GET_SUCCESS(200, "단어 가져오기 완료"),
     WORDLIST_GET_SUCCESS(200, "단어 리스트 가져오기 완료"),
     WORDTITLES_GET_SUCCESS(200, "단어 카드이름들 가져오기 완료"),
+    WORD_DELETE_SUCCESS(200, "단어 삭제하기 완료"),
+
     ;
 
 

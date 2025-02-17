@@ -1,5 +1,6 @@
 package com.wordtree.card;
 
+import com.wordtree.global.ResultCode;
 import com.wordtree.global.ResultResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,11 @@ public class CardController {
     public ResponseEntity<Object> getCards(@RequestParam Language language){
         List<Card> response =cardService.getList(language);
         return ResponseEntity.ok(ResultResponse.of(CARDLIST_GET_SUCCESS,response));
+    }
+    @DeleteMapping("delete")
+    public ResponseEntity<Object> deleteWord(@RequestParam Long cardId){
+        cardService.deleteCard(cardId);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.WORD_DELETE_SUCCESS));
     }
 
 

@@ -119,4 +119,13 @@ public class WordService {
         List<String> list = wordRepository.findTitlesByWord(wordId);
         return list;
     }
+    @Transactional
+    public void deleteWord(Long wordId) {
+        List<Long> cardIds = cardWordRepository.findCardIdsByWordId(wordId);
+        if (!cardIds.isEmpty()) {
+            cardRepository.decrementCountsByCardIds(cardIds);
+        }
+        cardWordRepository.deleteByWordId(wordId);
+        wordRepository.deleteById(wordId);
+    }
 }
