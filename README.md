@@ -17,7 +17,6 @@ https://github.com/user-attachments/assets/db37d958-2ad0-484d-98ee-4ae918b07b02
 Spring Boot,Java,Spring Security, JWT, MySql, React, JavaScript, Vite
 
 ## 기능
-*  회원관리
 *  언어별 카드 및 단어 리스트 조회,추가,수정,삭제
 *  단어 및 뜻 가리기 기능으로 학습 지원
 
