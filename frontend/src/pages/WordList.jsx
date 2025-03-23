@@ -122,14 +122,14 @@ const WordList = () => {
                 />
             )}
             <Pagination
-                activePage={page} // 현재 페이지
-                itemsCountPerPage={wordPageSize} // 한 페이지에 보여줄 개수
-                totalItemsCount={totalItems} // 전체 데이터 개수
-                pageRangeDisplayed={5} // 페이지 버튼 표시 개수
-                onChange={handlePageChange} // 페이지 변경 이벤트
-                innerClass="pagination" // ul 태그의 클래스
-                itemClass="page-item" // li 태그의 클래스
-                linkClass="page-link" // a 태그의 클래스
+                activePage={page}
+                itemsCountPerPage={wordPageSize} 
+                totalItemsCount={totalItems} 
+                pageRangeDisplayed={5} 
+                onChange={handlePageChange} 
+                innerClass="pagination" 
+                itemClass="page-item" 
+                linkClass="page-link" 
             />
             <ButtonToBack/>
             <ScrollToTop/>

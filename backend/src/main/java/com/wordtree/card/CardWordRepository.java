@@ -11,13 +11,13 @@ import java.util.List;
 
 @Repository
 public interface CardWordRepository extends JpaRepository<CardWord,Long> {
-    List<CardWord> findByWord(Word word);
+    List<CardWord> findByWord(Item word);
 
-    void deleteByCardAndWord(Card card, Word word);
+    void deleteByCardAndWord(Card card, Item word);
 
     @Modifying
     @Query("DELETE FROM CardWord cw WHERE cw.card.title IN :titles AND cw.word = :word AND cw.card.language = :language")
-    void deleteByCardTitlesAndWordAndLanguage(@Param("titles") List<String> titles, @Param("word") Word word, @Param("language") Language language);
+    void deleteByCardTitlesAndWordAndLanguage(@Param("titles") List<String> titles, @Param("word") Item word, @Param("language") Language language);
     @Modifying
     @Query("DELETE FROM CardWord cw WHERE cw.word.id = :wordId")
     void deleteByWordId(@Param("wordId") Long wordId);

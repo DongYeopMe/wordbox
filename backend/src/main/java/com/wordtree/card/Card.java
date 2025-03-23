@@ -1,6 +1,7 @@
 package com.wordtree.card;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.wordtree.directory.Directory;
 import com.wordtree.member.Member;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -28,29 +29,39 @@ public class Card {
     @Column(name="card_count",nullable = false)
     private int count;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name="card_category",nullable = false)
-    private Language language;
+    @Column(name="card_language",nullable = false)
+    private String language;
 
-    @OneToMany(mappedBy = "card", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private List<CardWord> cardWords = new ArrayList<>();
+    @Column(name="card_color",nullable = false)
+    private String description;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "card_items", joinColumns = @JoinColumn(name = "card_id"))
+    private List<Item> itemList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
+    private Member owner;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "directory_id")
     @JsonIgnore
-    private Member member;
+    private Directory directory;
     @Builder
-    public Card(String title, int count, Language language) {
+    public Card(String title, int count, String language,String description, List<Item> itemList) {
         this.title = title;
         this.count = count;
         this.language = language;
+        this.description = description;
+        this.itemList = itemList;
     }
     public static Card requestConvert(CardRequest cardRequest){
         return Card.builder()
                 .title(cardRequest.getTitle())
-                .count(0)
+                .count(cardRequest.getItemList().size())
                 .language(cardRequest.getLanguage())
+                .description(cardRequest.getDescription())
+                .itemList(cardRequest.getItemList())
                 .build();
     }
 }

@@ -1,18 +1,17 @@
 package com.wordtree.member;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wordtree.card.Card;
+import com.wordtree.directory.Directory;
 import com.wordtree.member.dto.MemberRequest;
-import com.wordtree.word.Word;
 import jakarta.persistence.*;
-import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -33,6 +32,12 @@ public class Member {
     private String username;
     @Column(name="member_role", nullable = false)
     private String roles;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Card> cards = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Directory> directoryList = new ArrayList<>();
 
     @Builder
     public Member(String userid, String password, String username) {

@@ -1,5 +1,7 @@
 package com.wordtree.card;
 
+import com.wordtree.directory.Directory;
+import com.wordtree.directory.DireotoryRepository;
 import com.wordtree.global.jwt.CustomUserDetailsService;
 import com.wordtree.member.MemberRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -16,12 +18,15 @@ public class CardService {
     private final CustomUserDetailsService customUserDetailsService;
     private final MemberRepository memberRepository;
     private final CardWordRepository cardWordRepository;
+    private final DireotoryRepository direotoryRepository;
     @Transactional
     public void createCard(CardRequest cardRequest) {
 
         Card card =Card.requestConvert(cardRequest);
-        card.setMember(customUserDetailsService.getAuthenticatedEntity());
-//        card.setMember(memberRepository.findByUserId("exex1"));
+        card.setDirectory(direotoryRepository.findById(cardRequest.getDirectoryId())
+                .orElseThrow(()->new RuntimeException("폴더 엔티티를 못찾았습니다.")));
+
+//        card.setMember(customUserDetailsService.getAuthenticatedEntity());
         cardRepository.save(card);
     }
     @Transactional

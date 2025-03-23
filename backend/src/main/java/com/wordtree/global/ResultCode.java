@@ -24,6 +24,12 @@ public enum ResultCode {
     WORDTITLES_GET_SUCCESS(200, "단어 카드이름들 가져오기 완료"),
     WORD_DELETE_SUCCESS(200, "단어 삭제하기 완료"),
 
+    DIR_ADD_SUCCESS(200, "폴더 추가 성공했습니다."),
+    DIR_EDIT_SUCCESS(200, "폴더 수정 완료"),
+    DIR_GET_SUCCESS(200, "폴더 가져오기 완료"),
+    DIR_DELETE_SUCCESS(200, "폴더 삭제하기 완료"),
+    DIRLIST_GET_SUCCESS(200, "폴더 리스트 가져오기 완료"),
+
     ;
 
 
