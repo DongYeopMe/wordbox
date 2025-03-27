@@ -13,9 +13,9 @@ import java.util.List;
 public interface CardRepository extends JpaRepository<Card,Long> {
 
     @Query("select c FROM Card c where c.language = :language")
-    List<Card> findCardsByLanguage(@Param("language") Language language);
+    List<Card> findCardsByLanguage(@Param("language") String language);
     @Query("select c FROM Card c where c.language = :language AND c.title = :title")
-    Card findCardByLanguageTitle(@Param("language") Language language,@Param("title") String title);
+    Card findCardByLanguageTitle(@Param("language") String language,@Param("title") String title);
     @Query("select c FROM Card c where c.title IN :titles AND c.language = :language")
     List<Card> findCardsByTitleANDLanguage(@Param("titles") List<String> titles,@Param("language") Language language);
     @Modifying

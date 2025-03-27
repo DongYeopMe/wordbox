@@ -11,7 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 
 public class DirectoryService {
-    private final DireotoryRepository direotoryRepository;
+    private final DirectoryRepository directoryRepository;
     private final CardRepository cardRepository;
 
 
@@ -20,26 +20,26 @@ public class DirectoryService {
     public void createFolder(String title) {
         //Member member;
         Directory directory = Directory.createConvert(title);
-        direotoryRepository.save(directory);
+        directoryRepository.save(directory);
     }
     @Transactional
     public void updateFolderTitle(Long id,String title){
-        Directory findDirectory =direotoryRepository.findById(id)
+        Directory findDirectory = directoryRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("폴더 엔티티를 못찾았습니다."));
         findDirectory.setTitle(title);
     }
     @Transactional
     public void deleteFolder(Long id){
-        direotoryRepository.deleteById(id);
+        directoryRepository.deleteById(id);
         //card 삭제 로직
     }
     public Directory getFolder(Long id){
-        Directory findDirectory =direotoryRepository.findById(id)
+        Directory findDirectory = directoryRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("폴더 엔티티를 못찾았습니다."));
         return findDirectory;
     }
     public List<Directory> getFolderList(){
-        List<Directory> DirectoryList = direotoryRepository.findAll();
+        List<Directory> DirectoryList = directoryRepository.findAll();
         return DirectoryList;
     }
 }

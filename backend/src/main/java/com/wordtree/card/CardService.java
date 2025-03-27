@@ -1,7 +1,6 @@
 package com.wordtree.card;
 
-import com.wordtree.directory.Directory;
-import com.wordtree.directory.DireotoryRepository;
+import com.wordtree.directory.DirectoryRepository;
 import com.wordtree.global.jwt.CustomUserDetailsService;
 import com.wordtree.member.MemberRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -17,16 +16,15 @@ public class CardService {
     private final CardRepository cardRepository;
     private final CustomUserDetailsService customUserDetailsService;
     private final MemberRepository memberRepository;
-    private final CardWordRepository cardWordRepository;
-    private final DireotoryRepository direotoryRepository;
+    private final DirectoryRepository directoryRepository;
     @Transactional
     public void createCard(CardRequest cardRequest) {
 
         Card card =Card.requestConvert(cardRequest);
-        card.setDirectory(direotoryRepository.findById(cardRequest.getDirectoryId())
+        card.setDirectory(directoryRepository.findById(cardRequest.getDirectoryId())
                 .orElseThrow(()->new RuntimeException("폴더 엔티티를 못찾았습니다.")));
 
-//        card.setMember(customUserDetailsService.getAuthenticatedEntity());
+        card.setOwner(customUserDetailsService.getAuthenticatedEntity());
         cardRepository.save(card);
     }
     @Transactional
@@ -35,13 +33,9 @@ public class CardService {
         card.setTitle(cardUpdateRequest.getTitle());
     }
 
-    public List<Card> getList(Language language) {
-        // "전체" 선택 시 모든 카드 반환
-        if (language == Language.TOTAL) {
-            return cardRepository.findAll();
-        }
-        // 특정 언어에 맞는 카드 반환
-        return cardRepository.findCardsByLanguage(language);
+    public List<Card> getList(Long directoryId) {
+        List<Card> response =  directoryRepository.findById(directoryId).orElseThrow(() ->new EntityNotFoundException("메시지")).getCards();
+        return response;
     }
 
     public Card getOne(CardRequest cardRequest) {
@@ -49,7 +43,6 @@ public class CardService {
     }
 
     public void deleteCard(Long cardId) {
-        cardWordRepository.deleteByCardId(cardId);
         cardRepository.deleteById(cardId);
     }
 }

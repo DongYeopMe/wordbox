@@ -34,12 +34,12 @@ public class CardController {
     }
 
     @GetMapping("/getList")
-    public ResponseEntity<Object> getCards(@RequestParam Language language){
-        List<Card> response =cardService.getList(language);
+    public ResponseEntity<Object> getCards(@RequestParam Long directoryId){
+        List<Card> response =cardService.getList(directoryId);
         return ResponseEntity.ok(ResultResponse.of(CARDLIST_GET_SUCCESS,response));
     }
     @DeleteMapping("delete")
-    public ResponseEntity<Object> deleteWord(@RequestParam Long cardId){
+    public ResponseEntity<Object> deleteCard(@RequestParam Long cardId){
         cardService.deleteCard(cardId);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.WORD_DELETE_SUCCESS));
     }
