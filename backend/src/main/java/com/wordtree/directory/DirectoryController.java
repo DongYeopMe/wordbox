@@ -18,28 +18,28 @@ public class DirectoryController {
 
     @PostMapping("/create")
     public ResponseEntity<Object> createDirectory(@RequestParam String title){
-        directoryService.createFolder(title);
+        directoryService.createDirectory(title);
         return ResponseEntity.ok(ResultResponse.of(DIR_ADD_SUCCESS,true));
     }
 
     @PatchMapping("/update")
     public ResponseEntity<Object> updateDirectory(@RequestParam Long id,@RequestParam String title){
-        directoryService.updateFolderTitle(id,title);
+        directoryService.updateDirectoryTitle(id,title);
         return ResponseEntity.ok(ResultResponse.of(DIR_EDIT_SUCCESS,true));
     }
     @GetMapping("/get")
-    public ResponseEntity<Object> getFolder(@RequestParam Long id){
-        Directory response =directoryService.getFolder(id);
+    public ResponseEntity<Object> getDirectory(@RequestParam Long id){
+        DirectoryResponse response =directoryService.getDirectory(id);
         return ResponseEntity.ok(ResultResponse.of(DIR_GET_SUCCESS,response));
     }
     @DeleteMapping("/delete")
-    public ResponseEntity<Object> deleteFolder(@RequestParam Long id){
-        directoryService.deleteFolder(id);
+    public ResponseEntity<Object> deleteDirectory(@RequestParam Long id){
+        directoryService.deleteDirectory(id);
         return ResponseEntity.ok(ResultResponse.of(DIR_DELETE_SUCCESS,true));
     }
     @GetMapping("/getList")
-    public ResponseEntity<Object> getFolderList(){
-        List<Directory> response  =directoryService.getFolderList();
+    public ResponseEntity<Object> getDirectoryList(@RequestParam String username){
+        List<Directory> response  =directoryService.getDIRList(username);
         return ResponseEntity.ok(ResultResponse.of(DIR_GET_SUCCESS,response));
     }
 }

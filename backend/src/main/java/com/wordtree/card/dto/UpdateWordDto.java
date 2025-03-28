@@ -1,4 +1,4 @@
-package com.wordtree.card.word;
+package com.wordtree.card.dto;
 
 public class UpdateWordDto {
     private String beforeWord;

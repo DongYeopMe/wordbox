@@ -1,5 +1,9 @@
-package com.wordtree.card;
+package com.wordtree.card.repository;
 
+import com.wordtree.card.entity.Card;
+import com.wordtree.card.entity.Language;
+import com.wordtree.directory.Directory;
+import com.wordtree.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -30,6 +34,13 @@ public interface CardRepository extends JpaRepository<Card,Long> {
     @Modifying
     @Query("UPDATE Card c SET c.count = c.count - 1 WHERE c.title IN :titles AND c.language = :language")
     void decrementCardCounts(@Param("titles") List<String> titles,@Param("language") Language language);
+    @Query("select c FROM Card c WHERE c.directory.id = :directoryId AND c.title = :title")
+    Card findCardByTitleAndDIRId(@Param("directoryId") Long directoryId,@Param("title") String title);
+    @Modifying
+    @Query("DELETE FROM Card c WHERE c.directory.id = :directoryId")
+    void deleteByDirectoryId(@Param("directoryId") Long directoryId);
+    @Query("select c FROM Card c WHERE c.member = :member")
+    List<Card> findByMember(@Param("member") Member member);
 
     @Modifying
     @Transactional

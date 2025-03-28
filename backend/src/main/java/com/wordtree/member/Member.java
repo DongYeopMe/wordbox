@@ -1,7 +1,6 @@
 package com.wordtree.member;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.wordtree.card.Card;
+import com.wordtree.card.entity.Card;
 import com.wordtree.directory.Directory;
 import com.wordtree.member.dto.MemberRequest;
 import jakarta.persistence.*;

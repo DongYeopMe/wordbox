@@ -16,6 +16,7 @@ public enum ResultCode {
     CARD_EDIT_SUCCESS(200, "카드 수정 완료"),
     CARD_GET_SUCCESS(200, "카드 가져오기 완료"),
     CARDLIST_GET_SUCCESS(200, "카드 리스트 가져오기 완료"),
+    CARD_DELETE_SUCCESS(200, "카드 삭제하기 완료"),
 
     WORD_ADD_SUCCESS(200, "단어 추가 성공했습니다."),
     WORD_EDIT_SUCCESS(200, "단어 수정 완료"),

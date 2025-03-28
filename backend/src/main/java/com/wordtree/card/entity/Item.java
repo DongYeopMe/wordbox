@@ -1,4 +1,4 @@
-package com.wordtree.card;
+package com.wordtree.card.entity;
 
 import jakarta.persistence.Embeddable;
 

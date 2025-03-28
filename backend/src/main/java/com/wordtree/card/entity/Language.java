@@ -1,4 +1,4 @@
-package com.wordtree.card;
+package com.wordtree.card.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

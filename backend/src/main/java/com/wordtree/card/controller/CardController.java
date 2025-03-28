@@ -1,5 +1,9 @@
-package com.wordtree.card;
+package com.wordtree.card.controller;
 
+import com.wordtree.card.entity.Card;
+import com.wordtree.card.dto.CardRequest;
+import com.wordtree.card.service.CardService;
+import com.wordtree.card.dto.CardUpdateRequest;
 import com.wordtree.global.ResultCode;
 import com.wordtree.global.ResultResponse;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +27,7 @@ public class CardController {
     }
     @PatchMapping("/update/{id}")
     public ResponseEntity<Object> updateCard(@PathVariable Long id,@RequestBody CardUpdateRequest cardUpdateRequest){
-        cardService.editCard(id,cardUpdateRequest);
+        cardService.updateCard(id,cardUpdateRequest);
         return ResponseEntity.ok(ResultResponse.of(CARD_EDIT_SUCCESS,true));
     }
 
@@ -41,7 +45,7 @@ public class CardController {
     @DeleteMapping("delete")
     public ResponseEntity<Object> deleteCard(@RequestParam Long cardId){
         cardService.deleteCard(cardId);
-        return ResponseEntity.ok(ResultResponse.of(ResultCode.WORD_DELETE_SUCCESS));
+        return ResponseEntity.ok(ResultResponse.of(CARD_DELETE_SUCCESS));
     }
 
 
