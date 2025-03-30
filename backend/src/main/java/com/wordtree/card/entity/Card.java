@@ -33,7 +33,7 @@ public class Card {
     @Column(name="card_language",nullable = false)
     private String language;
 
-    @Column(name="card_color",nullable = false)
+    @Column(name="card_description",nullable = false)
     private String description;
 
     @ElementCollection(fetch = FetchType.EAGER)

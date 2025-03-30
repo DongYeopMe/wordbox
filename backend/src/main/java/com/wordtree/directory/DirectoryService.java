@@ -1,11 +1,9 @@
 package com.wordtree.directory;
 
-import com.wordtree.card.entity.Card;
 import com.wordtree.card.repository.CardRepository;
 import com.wordtree.global.jwt.CustomUserDetailsService;
 import com.wordtree.member.Member;
 import com.wordtree.member.MemberRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +25,7 @@ public class DirectoryService {
     @Transactional
     public void createDirectory(String title) {
         Directory directory = Directory.createConvert(title);
-        directory.setOwner(customUserDetailsService.getAuthenticatedEntity());
+        directory.setMember(customUserDetailsService.getAuthenticatedEntity());
         directoryRepository.save(directory);
     }
     @Transactional
@@ -50,6 +48,10 @@ public class DirectoryService {
     public List<Directory> getDIRList(String username) {
         Member findmember = memberRepository.findByUserName(username);
         List<Directory> response =  directoryRepository.findByMember(findmember);
+        return response;
+    }
+    public List<Directory> getMyDIRList() {
+        List<Directory> response =  directoryRepository.findByMember(customUserDetailsService.getAuthenticatedEntity());
         return response;
     }
 }

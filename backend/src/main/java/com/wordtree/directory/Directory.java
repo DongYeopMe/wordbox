@@ -28,9 +28,9 @@ public class Directory {
     @Column(name="directory_count",nullable = false)
     private int count;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    private Member owner;
+    private Member member;
 
     @OneToMany(mappedBy = "directory", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Card> cards = new ArrayList<>();

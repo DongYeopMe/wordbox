@@ -1,5 +1,6 @@
 package com.wordtree.card.controller;
 
+import com.wordtree.card.dto.CardGetRequest;
 import com.wordtree.card.entity.Card;
 import com.wordtree.card.dto.CardRequest;
 import com.wordtree.card.service.CardService;
@@ -32,14 +33,14 @@ public class CardController {
     }
 
     @GetMapping("/getCard")
-    public ResponseEntity<Object> getCard(@RequestBody CardRequest cardRequest){
-        Card response =cardService.getOne(cardRequest);
+    public ResponseEntity<Object> getCard(@RequestBody CardGetRequest cardGetRequest){
+        Card response =cardService.getOne(cardGetRequest);
         return ResponseEntity.ok(ResultResponse.of(CARD_GET_SUCCESS,response));
     }
 
-    @GetMapping("/getList")
-    public ResponseEntity<Object> getCards(@RequestParam Long directoryId){
-        List<Card> response =cardService.getList(directoryId);
+    @GetMapping("/getUserCards")
+    public ResponseEntity<Object> getUserCards(@RequestParam String username){
+        List<Card> response =cardService.getList(username);
         return ResponseEntity.ok(ResultResponse.of(CARDLIST_GET_SUCCESS,response));
     }
     @DeleteMapping("delete")
@@ -47,6 +48,15 @@ public class CardController {
         cardService.deleteCard(cardId);
         return ResponseEntity.ok(ResultResponse.of(CARD_DELETE_SUCCESS));
     }
-
+    @GetMapping("/getWordList")
+    public ResponseEntity<Object> getWordList(@RequestParam Long cardId){
+        cardService.getWords(cardId);
+        return ResponseEntity.ok(ResultResponse.of(WORDLIST_GET_SUCCESS,true));
+    }
+    @GetMapping("/getMyCards")
+    public ResponseEntity<Object> getMyCards(){
+        List<Card> response =cardService.getMyCardList();
+        return ResponseEntity.ok(ResultResponse.of(CARDLIST_GET_SUCCESS,response));
+    }
 
 }

@@ -37,9 +37,14 @@ public class DirectoryController {
         directoryService.deleteDirectory(id);
         return ResponseEntity.ok(ResultResponse.of(DIR_DELETE_SUCCESS,true));
     }
-    @GetMapping("/getList")
+    @GetMapping("/getUserList")
     public ResponseEntity<Object> getDirectoryList(@RequestParam String username){
         List<Directory> response  =directoryService.getDIRList(username);
+        return ResponseEntity.ok(ResultResponse.of(DIR_GET_SUCCESS,response));
+    }
+    @GetMapping("/getMyDIR")
+    public ResponseEntity<Object> getDirectoryList(){
+        List<Directory> response  =directoryService.getMyDIRList();
         return ResponseEntity.ok(ResultResponse.of(DIR_GET_SUCCESS,response));
     }
 }

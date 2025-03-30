@@ -12,5 +12,6 @@ public class CardRequest {
     private Long directoryId;
     private String title;
     private String language;
+    private String description;
     private List<Item> itemList;
 }

@@ -39,6 +39,7 @@ public class CardService {
         Card card = cardRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Card 엔티티를 못찾았습니다."));
         card.setTitle(cardUpdateRequest.getTitle());
         card.setDescription(cardUpdateRequest.getDescription());
+        card.setItemList(cardUpdateRequest.getItemlist());
         card.setCount(cardUpdateRequest.getItemlist().size());
     }
 
@@ -59,6 +60,16 @@ public class CardService {
         Card findCard = cardRepository.findById(cardId).
                 orElseThrow(() -> new EntityNotFoundException("Card 엔티티를 못찾았습니다."));
         return findCard.getItemList();
+    }
+
+    public List<Card> getList(String userName) {
+        Member member = memberRepository.findByUserName(userName);
+        List<Card> response =cardRepository.findByMember(member);
+        return response;
+    }
+    public List<Card> getMyCardList() {
+        List<Card> response =cardRepository.findByMember(customUserDetailsService.getAuthenticatedEntity());
+        return response;
     }
 
 }

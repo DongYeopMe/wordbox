@@ -1,13 +1,9 @@
 package com.wordtree.member.dto;
 
 import com.wordtree.member.Member;
-import com.wordtree.word.Word;
-import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
 
 @Setter
 @Getter

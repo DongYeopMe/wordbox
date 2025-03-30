@@ -31,6 +31,8 @@ public enum ResultCode {
     DIR_DELETE_SUCCESS(200, "폴더 삭제하기 완료"),
     DIRLIST_GET_SUCCESS(200, "폴더 리스트 가져오기 완료"),
 
+    QUIZ_GET_SUCCESS(200,"퀴즈 가져오기 성공했습니다.")
+
     ;
 
 
