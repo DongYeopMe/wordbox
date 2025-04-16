@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Header from "./Header";
 import Aside from "./Aside";
 
-const Layout = () => {
+function Layout({ chilren }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleAside = () => setIsSidebarOpen(!isSidebarOpen);
   const outside = useRef(null);
@@ -34,7 +34,8 @@ const Layout = () => {
         isSidebarOpen={isSidebarOpen}
         outside={outside}
       />
+      {chilren}
     </>
   );
-};
+}
 export default Layout;

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Logo from "../image/언어나무.png";
+import Logo from "@image/logo(slogan).png";
 import Button from "../components/common/Button";
 import "../styles/Login.css";
 import axios from "axios";

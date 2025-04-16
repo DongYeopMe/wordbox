@@ -19,7 +19,7 @@ function Aside({ isSidebarOpen, outside, togglesideBar }) {
   ];
   return (
     <>
-      <aside className="h-full w-15 bg-indigo-500">
+      <aside className="h-full w-15 bg-[#4f46e5]">
         <div className="flex flex-col ">
           {navItems.map((item) => (
             <NavLink key={item.id} to={item.to} className=" hover:bg-gray-400">

@@ -1,17 +1,17 @@
 import { FiAlignJustify } from "react-icons/fi";
 import { FaSearch } from "react-icons/fa";
-import { PiAcorn } from "react-icons/pi";
+import Logo from "@image/brand(white).png";
 import { NavLink } from "react-router-dom";
 function Header({ togglesideBar }) {
   return (
     <>
-      <header className="flex flex-row justify-between items-center bg-indigo-500 h-[40px]  ">
-        <div className="flex gap-5">
+      <header className="flex flex-row justify-between items-center bg-[#4f46e5] h-[40px]  ">
+        <div className="flex h-[40px] items-center pl-5 gap-5">
           <button onClick={togglesideBar} className="hover:bg-gray-400">
-            <FiAlignJustify size="30" />
+            <FiAlignJustify size="30" color="white" />
           </button>
           <NavLink key="home" to="/" className=" hover:bg-gray-400">
-            <PiAcorn size="30" />
+            <img src={Logo} alt="logo" width={100} />
           </NavLink>
         </div>
         <div className="bg-gray-400 rounded-md w-96 flex justify-between">
