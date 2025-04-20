@@ -11,6 +11,16 @@ function SignupPage() {
   const [IsPWValidation, setPWValidation] = useState(false);
   const [IsUserNameValidation, setuserNameValidation] = useState(false);
 
+  const handleInputId = (e) => {
+    setuserId(e.target.value);
+  };
+  const handleInputpw = (e) => {
+    setPassword(e.target.value);
+  };
+  const handleInputUserName = (e) => {
+    setUserName(e.target.value);
+  };
+
   return (
     <div className="h-screen ">
       <header className="flex flex-row justify-between items-center bg-[#4f46e5] h-[40px] ">
@@ -38,6 +48,7 @@ function SignupPage() {
                     id="userid"
                     className="w-full focus:outline-none"
                     value={userId}
+                    onChange={handleInputId}
                     placeholder="아이디"
                   />
                   <div className="w-[40px] h-[50px]"></div>
@@ -54,6 +65,7 @@ function SignupPage() {
                     id="passowrd"
                     className="w-full focus:outline-none"
                     value={passWord}
+                    onChange={handleInputpw}
                     placeholder="비밀번호"
                   />
                   <div className="w-[40px] h-[50px]"></div>
@@ -70,6 +82,7 @@ function SignupPage() {
                     id="username"
                     className="w-full focus:outline-none"
                     value={userName}
+                    onChange={handleInputUserName}
                     placeholder="유저명"
                   />
                   <div className="w-[40px] h-[50px]"></div>
