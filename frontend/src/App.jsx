@@ -3,9 +3,10 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/LoginPage.jsx";
 import Card from "./pages/Card.jsx";
-import Quiz from "./pages/Quiz.jsx";
+import Quiz from "./pages/QuizPage.jsx";
 import WordList from "./pages/WordList.jsx";
 import Layout from "./components/common/Layout.jsx";
+import SignupPage from "./pages/SignupPage.jsx";
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/wordlist" element={<WordList />} />
-        <Route path="/test" element={<Layout />} />
+        <Route path="/layout" element={<Layout />} />
+        <Route path="/sign-up" element={<SignupPage />} />
       </Routes>
     </BrowserRouter>
   );

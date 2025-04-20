@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "@image/logo(slogan).png";
 import Button from "../components/common/Button";
-import "../styles/Login.css";
 import axios from "axios";
 const login = () => {
   const [userId, setuserId] = useState("");
@@ -66,12 +65,14 @@ const login = () => {
         />
         <button
           type="submit"
-          className="w-full py-2 mt-2 bg-[#bdfcc9] text-white text-[17px] font-bold rounded cursor-pointer"
+          className="w-full py-2 mt-2 bg-[#4f46e5] text-white text-[17px] font-bold rounded cursor-pointer"
         >
           로그인
         </button>
         <div className="flex justify-between text-[10px] px-15 pt-2">
-          <a className="cursor-pointer">회원가입</a>
+          <NavLink className="cursor-pointer" to="/sign-up">
+            회원가입
+          </NavLink>
           <a className="cursor-pointer">비밀번호 찾기</a>
         </div>
       </form>
