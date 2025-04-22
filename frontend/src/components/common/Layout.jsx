@@ -4,38 +4,23 @@ import { useEffect, useRef, useState } from "react";
 import Header from "./Header";
 import Aside from "./Aside";
 
-function Layout({ chilren }) {
+function Layout({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleAside = () => setIsSidebarOpen(!isSidebarOpen);
   const outside = useRef(null);
 
-  useEffect(() => {
-    const handleClickOutSide = (e) => {
-      if (
-        isSidebarOpen &&
-        outside.current &&
-        !outside.current.contains(e.target)
-      ) {
-        setIsSidebarOpen(false);
-      }
-    };
-    window.addEventListener("mousedown", handleClickOutSide);
-
-    return () => {
-      window.removeEventListener("mousedown", handleClickOutSide);
-    };
-  }, [isSidebarOpen]);
-
   return (
-    <>
+    <div className="h-screen flex flex-col">
       <Header togglesideBar={toggleAside} />
-      <Aside
-        togglesideBar={toggleAside}
-        isSidebarOpen={isSidebarOpen}
-        outside={outside}
-      />
-      {chilren}
-    </>
+      <div className="flex flex-1 overflow-hidden">
+        <Aside
+          togglesideBar={toggleAside}
+          isSidebarOpen={isSidebarOpen}
+          outside={outside}
+        />
+        <main className="overflow-auto bg-white">{children}</main>
+      </div>
+    </div>
   );
 }
 export default Layout;
