@@ -2,11 +2,11 @@ import stubData from "../../data/cardStub";
 import { NavLink } from "react-router-dom";
 import Icon from "../common/Icon";
 
-function CardsComponentM1({ subject }) {
+function CardComponentM1({ subject }) {
   return (
     <div className="w-full">
       <span className="font-bold pl-4 w-full block">{subject}</span>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap pt-1">
         {stubData.slice(0, 4).map((card) => (
           <NavLink
             key={card.id}
@@ -36,4 +36,4 @@ function CardsComponentM1({ subject }) {
     </div>
   );
 }
-export default CardsComponentM1;
+export default CardComponentM1;

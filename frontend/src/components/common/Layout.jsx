@@ -12,7 +12,7 @@ function Layout({ children }) {
   return (
     <div className="h-screen flex flex-col">
       <Header togglesideBar={toggleAside} />
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 h-full min-h-0 overflow-hidden">
         <Aside
           togglesideBar={toggleAside}
           isSidebarOpen={isSidebarOpen}
