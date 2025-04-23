@@ -38,7 +38,7 @@ function Aside({ isSidebarOpen }) {
   return (
     <>
       <aside
-        className={`h-full left-0 w-18 bg-[#4f46e5] transform-all duration-300 ease-in-out
+        className={`h-full left-0 bg-[#4f46e5] transform-all duration-300 ease-in-out
       ${isSidebarOpen ? "w-48" : "w-18"} overflow-hidden`}
       >
         <div className="flex flex-col px-5 py-2 gap-2">

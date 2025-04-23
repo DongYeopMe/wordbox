@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Button from "../components/common/Button";
-import AddCardModal from "../components/home/AddCardModal";
-import AddWordModal from "../components/home/AddWordModal";
 import Subject from "../components/home/Subject.jsx";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
