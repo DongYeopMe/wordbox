@@ -26,7 +26,7 @@ function Aside({ isSidebarOpen }) {
       id: "library",
       label: "라이브러리",
       icon: <PiAddressBook size="30" color="white" />,
-      to: "/library",
+      to: "/user/name/library",
     },
     {
       id: "create",
