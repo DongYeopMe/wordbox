@@ -1,6 +1,7 @@
 # 개인 단어장 앱
 ## 1차 기능 개발
 https://github.com/user-attachments/assets/5df7eff6-2884-41cf-a6d2-c08c177a29b5
+
 https://github.com/user-attachments/assets/db37d958-2ad0-484d-98ee-4ae918b07b02
 
 
