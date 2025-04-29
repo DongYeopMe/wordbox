@@ -8,11 +8,11 @@ function LibraryPage(chilren) {
   const [selected, setSelected] = useState("폴더");
   const headText = useState("라이브러리");
 
-  const tablist = ["폴더", "최근", "학습중 카드"];
+  const tablist = ["폴더", "학습중 카드", "최근", "내가 만든 카드"];
   const tabComponents = {
     폴더: <FolderListComponent />,
-    최근: <RecentCardComponent />,
     "학습중 카드": <LearningCardComponent />,
+    최근: <RecentCardComponent />,
   };
 
   return (
