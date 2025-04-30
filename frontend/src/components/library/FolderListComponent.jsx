@@ -71,7 +71,7 @@ function FolderListComponent(props) {
   }, [modalInfo]);
 
   return (
-    <div className="py-3">
+    <div className="h-screen py-3">
       {data.map((folder) => (
         <div
           key={folder.id}
