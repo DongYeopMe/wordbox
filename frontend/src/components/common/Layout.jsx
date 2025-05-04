@@ -18,7 +18,9 @@ function Layout({ children }) {
           isSidebarOpen={isSidebarOpen}
           outside={outside}
         />
-        <main className="flex-1 overflow-auto bg-white">{children}</main>
+        <main id="content" className="flex-1 overflow-auto bg-white">
+          {children}
+        </main>
       </div>
     </div>
   );
