@@ -25,7 +25,7 @@ function Option({ optionState, setOptionState }) {
       {/* 상단 오른쪽 옵션 버튼 */}
       <button
         onClick={() => toggleOption("word")}
-        className={`px-3 py-2 rounded shadow ${
+        className={`px-3 py-2 rounded shadow cursor-pointer hover:bg-gray-300 ${
           optionState.word ? "bg-blue-300" : "bg-gray-100"
         }`}
       >
@@ -33,7 +33,7 @@ function Option({ optionState, setOptionState }) {
       </button>
       <button
         onClick={() => toggleOption("meaning")}
-        className={`px-3 py-2 rounded shadow ${
+        className={`px-3 py-2 rounded shadow cursor-pointer hover:bg-gray-300 ${
           optionState.meaning ? "bg-blue-300" : "bg-gray-100"
         }`}
       >

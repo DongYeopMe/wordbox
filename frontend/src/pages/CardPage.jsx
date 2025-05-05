@@ -8,7 +8,7 @@ import {
   BsJournalBookmarkFill,
 } from "react-icons/bs";
 import stubData from "../data/voca";
-import WordListComponant from "../components/home/WordListComponant";
+import WordListComponent from "../components/home/WordListComponent";
 //모달창?
 // 문제 : 주관식 (객관식 추후 추가)
 // 학습 : 단어 카드, 뜻or단어 숨기기
@@ -58,7 +58,7 @@ function CardPage() {
         <div className="min-w-[670px] max-w-[930px]">
           <div className="px-4">
             <div id="header">
-              <div className="flex justify-between">
+              <div className="flex justify-between py-5">
                 <div>
                   <h1 className="text-3xl">카드 이름</h1>
                 </div>
@@ -77,7 +77,7 @@ function CardPage() {
                 </div>
               </div>
             </div>
-            <WordListComponant optionState={optionState} />
+            <WordListComponent optionState={optionState} />
           </div>
         </div>
       </div>
