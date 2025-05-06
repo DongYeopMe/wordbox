@@ -2,25 +2,21 @@ import { useState } from "react";
 import stubData from "../../data/voca";
 import { BsCheckSquare } from "react-icons/bs";
 import FilterBarComponent from "./FilterBarComponent";
+import PageNationComponent from "../page/PageNationComponent";
 
 function WordListComponent({ optionState }) {
   const [ischecked, setIsChecked] = useState(false);
-  const [showSortModal, setShowSortModal] = useState(false);
-  const [showFilterModal, setShowFilterModal] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
-  const toggleSortModal = () => {
-    setShowSortModal((prev) => !prev);
-    setShowFilterModal(false); // 다른 쪽은 닫기
-  };
-
-  const toggleFilterModal = () => {
-    setShowFilterModal((prev) => !prev);
-    setShowSortModal(false); // 다른 쪽은 닫기
-  };
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentWords = stubData.slice(indexOfFirstItem, indexOfLastItem);
 
   const studyCheck = (id) => {
     setIsChecked(!ischecked);
   };
+
   return (
     <div id="content" className="w-full min-h-screen">
       <div className="bg-gray-200 p-4 ">
@@ -84,7 +80,13 @@ function WordListComponent({ optionState }) {
             </div>
           ))}
         </div>
-        <div id="page"></div>
+        {/* 페이지네이션 */}
+        <PageNationComponent
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+          totalItems={stubData.length}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </div>
   );
