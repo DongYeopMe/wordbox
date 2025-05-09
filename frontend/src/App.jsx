@@ -9,6 +9,7 @@ import SignupPage from "./pages/SignupPage.jsx";
 import Home from "./pages/HomePage.jsx";
 import LibraryPage from "./pages/LibraryPage.jsx";
 import CardPage from "./pages/CardPage.jsx";
+import CardCreatePage from "./pages/CardCreatePage.jsx";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/sign-up" element={<SignupPage />} />
         <Route path="/user/name/library" element={<LibraryPage />} />
         <Route path="/card" element={<CardPage />} />
+        <Route path="/newcard" element={<CardCreatePage />} />
       </Routes>
     </BrowserRouter>
   );

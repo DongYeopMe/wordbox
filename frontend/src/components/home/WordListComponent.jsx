@@ -3,6 +3,7 @@ import stubData from "../../data/voca";
 import { BsCheckSquare } from "react-icons/bs";
 import FilterBarComponent from "./FilterBarComponent";
 import PageNationComponent from "../page/PageNationComponent";
+import { NavLink } from "react-router-dom";
 
 function WordListComponent({ optionState }) {
   const [ischecked, setIsChecked] = useState(false);
@@ -12,6 +13,11 @@ function WordListComponent({ optionState }) {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentWords = stubData.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const studyCheck = (id) => {
     setIsChecked(!ischecked);
@@ -28,7 +34,7 @@ function WordListComponent({ optionState }) {
             <FilterBarComponent />
           </div>
         </nav>
-        <div className="flex flex-col gap-3">
+        <section className="flex flex-col gap-3">
           {stubData.map((word) => (
             <div key={word.id} className="border-2 bg-gray-100 rounded-2xl">
               <div className="py-5">
@@ -79,13 +85,20 @@ function WordListComponent({ optionState }) {
               </div>
             </div>
           ))}
+        </section>
+        {/*if 자기가 만든 카드 */}
+        <div className="w-full flex items-center justify-center mt-7">
+          <NavLink className="border-1 rounded-2xl py-3 px-5 hover:bg-gray-300 cursor-pointer">
+            <span>단어 추가 및 삭제</span>
+          </NavLink>
         </div>
+
         {/* 페이지네이션 */}
         <PageNationComponent
           currentPage={currentPage}
           itemsPerPage={itemsPerPage}
           totalItems={stubData.length}
-          onPageChange={setCurrentPage}
+          onPageChange={handlePageChange}
         />
       </div>
     </div>

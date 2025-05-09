@@ -4,7 +4,7 @@ export default function ScrollToTop() {
     console.log("클릭됨"); // 버튼 눌렀는지 확인용
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: "",
     });
   };
 
