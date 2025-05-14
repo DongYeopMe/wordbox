@@ -3,6 +3,9 @@ import { BiSolidTrashAlt } from "react-icons/bi";
 function WordAddComponent({ index }) {
   const [word, setWord] = useState(""); // 단어
   const [meaning, setMeaning] = useState(""); //뜻
+  const handleDelete = (id) => {
+    setWords((prev) => prev.filter((item) => item.id !== id));
+  };
 
   return (
     <div className="border-1 border-gray-50 rounded-xl bg-white">
@@ -10,7 +13,11 @@ function WordAddComponent({ index }) {
         <span className="pl-4">{index}</span>
         <div className="flex flex-row gap-6 pr-5">
           <button>언어</button>
-          <div>
+          <div
+            id="delete"
+            className="cursor-pointer"
+            onClick={() => handleDelete()}
+          >
             <BiSolidTrashAlt />
           </div>
         </div>

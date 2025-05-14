@@ -1,0 +1,29 @@
+#card {
+  display: inline-grid;
+  transition: transform 0.3s;
+  transform-style: preserve-3d;
+  border: none;
+  height: 90%;
+  width: 100%;
+  font-size: x-large;
+}
+
+#card > * {
+  grid-area: 1 / 1 / 1 / 1;
+  padding: 12px;
+  border-radius: 8px;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+#front {
+  background: white;
+}
+
+#back {
+  background: white;
+  transform: rotateX(180deg);
+}
