@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import Logo from "@image/brand(white).png";
 import { MdOutlinePersonOutline, MdLockOutline } from "react-icons/md";
+import { BiSolidUserCircle } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
+import { registerMember } from "../apis/api/member";
+import { useNavigate } from "react-router-dom";
+
 /* userid,password,username */
 function SignupPage() {
   const [userId, setuserId] = useState();
@@ -10,6 +14,7 @@ function SignupPage() {
   const [IsIDValidation, setIDValidation] = useState(false);
   const [IsPWValidation, setPWValidation] = useState(false);
   const [IsUserNameValidation, setuserNameValidation] = useState(false);
+  const navigate = useNavigate();
 
   const handleInputId = (e) => {
     setuserId(e.target.value);
@@ -19,6 +24,14 @@ function SignupPage() {
   };
   const handleInputUserName = (e) => {
     setUserName(e.target.value);
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formdata = {
+      userid: userId,
+      password: passWord,
+      username: userName,
+    };
   };
 
   return (
@@ -34,7 +47,10 @@ function SignupPage() {
       <div className="h-full flex justify-center items-center">
         <div className="flex flex-col w-[500px] py-10">
           <div className="mx-7">
-            <form className="flex flex-col items-center py-10 px-10">
+            <form
+              onSubmit={handleSumit}
+              className="flex flex-col items-center py-10 px-10"
+            >
               <h1 className="text-2xl font-bold text-center mb-2 text-[#4f46e5]">
                 회원가입
               </h1>
@@ -75,7 +91,7 @@ function SignupPage() {
               <div className="w-full">
                 <div className="w-full border-1 h-[50px] flex flex-row items-center focus-within:outline focus-within:outline-2 focus-within:bg-gray-100">
                   <div className="w-[40px] h-[30px] flex items-center">
-                    <MdLockOutline size={30} />
+                    <BiSolidUserCircle size={30} />
                   </div>
                   <input
                     type="text"

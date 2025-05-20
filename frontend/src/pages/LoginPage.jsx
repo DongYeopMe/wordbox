@@ -26,8 +26,8 @@ const login = () => {
 
       // 서버에서 JWT를 응답하면 localStorage에 저장
       const accessToken = response.headers["authorization"]; // 헤더에서 JWT 가져오기
-      console.log(accessToken);
       localStorage.setItem("access_token", accessToken);
+      navigate("/");
     } catch {
       console.log("다시 요청보내주세요.");
     }
@@ -45,7 +45,10 @@ const login = () => {
       <img src={Logo} alt="logo" width={200} height={200} />
       <form
         className="w-[370px] p-6 bg-white border border-gray-300 rounded-[10px] shadow-lg"
-        onSubmit={handleLogin}
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleLogin();
+        }}
       >
         <input
           className="w-full p-3 my-[8px] border border-gray-300 rounded-[7px] text-[13px] focus:border-black focus:text-[12px]"
