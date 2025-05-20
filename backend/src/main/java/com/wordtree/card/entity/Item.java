@@ -15,6 +15,9 @@ public class Item {
     private String exampleMeaning;
     private boolean starred;
 
+    protected  Item() {
+    }
+
     public Item(String word, String meaning, String example, String exampleMeaning, boolean starred) {
         this.word = word;
         this.meaning = meaning;

@@ -22,7 +22,7 @@ public class MemberService {
             return;
         }
         Member member = requestConvert(memberRequest);
-        member.setRoles("ROLE_ADMIN");
+        member.setRoles("ROLE_USER");
         member.setPassword(passwordEncoder.encode(member.getPassword()));
         memberRepository.save(member);
     }

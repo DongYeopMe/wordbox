@@ -1,14 +1,15 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/wordtree
+    url: jdbc:mysql://localhost:3306/wordbox?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: root
     password: thrmEkel123!
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.MySQLDialect
   jwt:
     secret: yrKE36QRt5aRNqtfTdTwhVijbIB0lNQDpPxcdoqdEPPyASnDHFrsHjkr4pcHKhKh

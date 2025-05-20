@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,12 +21,14 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String userid) throws UsernameNotFoundException {
 
         Member member = memberRepository.findByUserId(userid);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         if(member != null){
             return new CustomUserDetails(member);
         }
 
         return null;
+
     }
     public Member getAuthenticatedEntity() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -37,7 +40,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         String userid = userDetails.getUsername(); // `userid` 가져오기
 
-        // 📌 DB에서 `userid`를 기반으로 다시 조회하여 영속 상태로 반환
         return memberRepository.findByUserId(userid);
     }
 }
