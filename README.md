@@ -19,7 +19,7 @@ https://github.com/user-attachments/assets/db37d958-2ad0-484d-98ee-4ae918b07b02
 
 
 ## 사용 스택
-Spring Boot,Java,Spring Security, JWT, MySql, React, JavaScript, Vite
+Spring Boot,Java,Spring Security, JWT, MySql, React, JavaScript
 
 
 ## 설명
