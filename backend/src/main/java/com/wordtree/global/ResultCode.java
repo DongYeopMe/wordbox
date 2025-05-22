@@ -16,13 +16,22 @@ public enum ResultCode {
     CARD_EDIT_SUCCESS(200, "카드 수정 완료"),
     CARD_GET_SUCCESS(200, "카드 가져오기 완료"),
     CARDLIST_GET_SUCCESS(200, "카드 리스트 가져오기 완료"),
+    CARD_DELETE_SUCCESS(200, "카드 삭제하기 완료"),
 
     WORD_ADD_SUCCESS(200, "단어 추가 성공했습니다."),
     WORD_EDIT_SUCCESS(200, "단어 수정 완료"),
     WORD_GET_SUCCESS(200, "단어 가져오기 완료"),
     WORDLIST_GET_SUCCESS(200, "단어 리스트 가져오기 완료"),
     WORDTITLES_GET_SUCCESS(200, "단어 카드이름들 가져오기 완료"),
-    WORD_DELETE_SUCCESS(200, "단어 삭제하기 완료"),
+    WORDLIST_UPDATE_SUCCESS(200, "단어리스트 업데이트 완료"),
+
+    DIR_ADD_SUCCESS(200, "폴더 추가 성공했습니다."),
+    DIR_EDIT_SUCCESS(200, "폴더 수정 완료"),
+    DIR_GET_SUCCESS(200, "폴더 가져오기 완료"),
+    DIR_DELETE_SUCCESS(200, "폴더 삭제하기 완료"),
+    DIRLIST_GET_SUCCESS(200, "폴더 리스트 가져오기 완료"),
+
+    QUIZ_GET_SUCCESS(200,"퀴즈 가져오기 성공했습니다.")
 
     ;
 
