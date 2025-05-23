@@ -28,4 +28,9 @@ public class Subscription {
 
     private LocalDateTime subscribedAt;
 
+    public Subscription(Member member, Card card) {
+        this.member = member;
+        this.card = card;
+        this.subscribedAt = LocalDateTime.now();
+    }
 }
