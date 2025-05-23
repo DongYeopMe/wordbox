@@ -1,10 +1,8 @@
 package com.wordtree.card.controller;
 
-import com.wordtree.card.dto.CardGetRequest;
+import com.wordtree.card.dto.*;
 import com.wordtree.card.entity.Card;
-import com.wordtree.card.dto.CardRequest;
 import com.wordtree.card.service.CardService;
-import com.wordtree.card.dto.CardUpdateRequest;
 import com.wordtree.global.ResultCode;
 import com.wordtree.global.ResultResponse;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +16,7 @@ import static com.wordtree.global.ResultCode.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/card")
+//getCard,getWordlist로 나눈 이유 : 페이지네이션으로 받아와야해서 나눔.
 public class CardController {
     private final CardService cardService;
 
@@ -34,13 +33,13 @@ public class CardController {
 
     @GetMapping("/getCard")
     public ResponseEntity<Object> getCard(@RequestBody CardGetRequest cardGetRequest){
-        Card response =cardService.getOne(cardGetRequest);
+        UserCardResponse response =cardService.getOne(cardGetRequest);
         return ResponseEntity.ok(ResultResponse.of(CARD_GET_SUCCESS,response));
     }
 
     @GetMapping("/getUserCards")
-    public ResponseEntity<Object> getUserCards(@RequestParam String username){
-        List<Card> response =cardService.getList(username);
+    public ResponseEntity<Object> getUserCards(@RequestParam Long directoryId){
+        List<Card> response =cardService.getCards(directoryId);
         return ResponseEntity.ok(ResultResponse.of(CARDLIST_GET_SUCCESS,response));
     }
     @DeleteMapping("delete")
@@ -49,8 +48,8 @@ public class CardController {
         return ResponseEntity.ok(ResultResponse.of(CARD_DELETE_SUCCESS));
     }
     @GetMapping("/getWordList")
-    public ResponseEntity<Object> getWordList(@RequestParam Long cardId){
-        cardService.getWords(cardId);
+    public ResponseEntity<Object> getWordList(@RequestBody CardGetRequest request){
+        CardWordListResponse response =cardService.getWords(request);
         return ResponseEntity.ok(ResultResponse.of(WORDLIST_GET_SUCCESS,true));
     }
     @GetMapping("/getMyCards")

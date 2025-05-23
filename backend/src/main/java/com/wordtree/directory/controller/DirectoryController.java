@@ -1,5 +1,8 @@
-package com.wordtree.directory;
+package com.wordtree.directory.controller;
 
+import com.wordtree.directory.dto.DirectoryResponse;
+import com.wordtree.directory.dto.UserDirectoryResponseDto;
+import com.wordtree.directory.service.DirectoryService;
 import com.wordtree.global.ResultResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -39,12 +42,7 @@ public class DirectoryController {
     }
     @GetMapping("/getUserList")
     public ResponseEntity<Object> getDirectoryList(@RequestParam String username){
-        List<Directory> response  =directoryService.getDIRList(username);
-        return ResponseEntity.ok(ResultResponse.of(DIR_GET_SUCCESS,response));
-    }
-    @GetMapping("/getMyDIR")
-    public ResponseEntity<Object> getDirectoryList(){
-        List<Directory> response  =directoryService.getMyDIRList();
+        List<UserDirectoryResponseDto> response  =directoryService.getDIRList(username);
         return ResponseEntity.ok(ResultResponse.of(DIR_GET_SUCCESS,response));
     }
 }

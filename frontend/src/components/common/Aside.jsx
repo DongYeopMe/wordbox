@@ -32,7 +32,7 @@ function Aside({ isSidebarOpen }) {
       id: "create",
       label: "단어카드",
       icon: <MdEditSquare size="30" color="white" />,
-      to: "/create",
+      to: "/newcard",
     },
   ];
   return (

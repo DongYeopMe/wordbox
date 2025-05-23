@@ -1,11 +1,28 @@
 import React, { useEffect, useState, useRef } from "react";
-import data from "../../data/directoryStub";
+import { getDirectoryList, getMyDirectoryList } from "../../apis/api/directory";
 import { BsBoxSeam } from "react-icons/bs";
 import { BiDotsVerticalRounded, BiPencil, BiSolidTrash } from "react-icons/bi";
-function FolderListComponent(props) {
+function FolderListComponent({ isMe, username }) {
+  const [directories, setDirectories] = useState([]);
+
   const [modalInfo, setModalInfo] = useState(null);
   const buttonRef = useRef(null);
   const modalRef = useRef(null);
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = isMe
+          ? await getMyDirectoryList()
+          : await getDirectoryList("익명1"); //추후 username으로 교체
+
+        setDirectories(response.data.data);
+      } catch (error) {
+        console.log("실패:", error.response?.data || error.message);
+      }
+    };
+
+    getData();
+  }, [isMe, username]); // username도 외부에서 바뀔 가능성 고려해서 포함
 
   const toggleModal = (e, folderId) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -72,7 +89,7 @@ function FolderListComponent(props) {
 
   return (
     <div className="h-screen py-3">
-      {data.map((folder) => (
+      {directories.map((folder) => (
         <div
           key={folder.id}
           className={` w-full border-2 h-[70px] rounded-[8px] flex items-center 

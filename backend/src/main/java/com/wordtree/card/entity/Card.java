@@ -2,7 +2,8 @@ package com.wordtree.card.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wordtree.card.dto.CardRequest;
-import com.wordtree.directory.Directory;
+import com.wordtree.directory.entity.Directory;
+import com.wordtree.directory.entity.DirectoryCard;
 import com.wordtree.member.Member;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -44,10 +45,8 @@ public class Card {
     @JoinColumn(name = "member_id")
     private Member owner;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "directory_id")
-    @JsonIgnore
-    private Directory directory;
+    @OneToMany(mappedBy = "card", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DirectoryCard> directoryCards = new ArrayList<>();
     @Builder
     public Card(String title, int count, String language,String description, List<Item> itemList) {
         this.title = title;

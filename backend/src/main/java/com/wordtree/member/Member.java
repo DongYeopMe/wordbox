@@ -1,7 +1,7 @@
 package com.wordtree.member;
 
 import com.wordtree.card.entity.Card;
-import com.wordtree.directory.Directory;
+import com.wordtree.directory.entity.Directory;
 import com.wordtree.member.dto.MemberRequest;
 import jakarta.persistence.*;
 import lombok.Builder;

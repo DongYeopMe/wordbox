@@ -5,6 +5,6 @@ import lombok.Getter;
 
 @Getter
 public class CardGetRequest {
-    private Long directoryId;
+    private Long cardId;
     private String title;
 }

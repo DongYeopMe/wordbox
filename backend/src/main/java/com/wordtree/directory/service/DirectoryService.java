@@ -1,6 +1,12 @@
-package com.wordtree.directory;
+package com.wordtree.directory.service;
 
+import com.wordtree.card.dto.UserCardResponse;
+import com.wordtree.card.entity.Card;
 import com.wordtree.card.repository.CardRepository;
+import com.wordtree.directory.entity.Directory;
+import com.wordtree.directory.repository.DirectoryRepository;
+import com.wordtree.directory.dto.DirectoryResponse;
+import com.wordtree.directory.dto.UserDirectoryResponseDto;
 import com.wordtree.global.jwt.CustomUserDetailsService;
 import com.wordtree.member.Member;
 import com.wordtree.member.MemberRepository;
@@ -9,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -42,16 +49,22 @@ public class DirectoryService {
     public DirectoryResponse getDirectory(Long id){
         Directory findDirectory = directoryRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("폴더 엔티티를 못찾았습니다."));
-        DirectoryResponse response = new DirectoryResponse(findDirectory.getTitle(), findDirectory.getCount(),findDirectory.getCards());
-        return response;
+        List<Card> cardlist = findDirectory.getCards();
+        Member member = customUserDetailsService.getAuthenticatedEntity();
+        List<UserCardResponse> cardResponses =
+                cardlist.stream()
+                        .map(card-> new UserCardResponse
+                                (card.getId(),card.getTitle(),card.getCount(),card.getOwner().getUsername(),member.getId().equals(card.getOwner().getId()))).collect(Collectors.toList());
+
+        return new DirectoryResponse(findDirectory.getTitle(), findDirectory.getCount(), cardResponses);
     }
-    public List<Directory> getDIRList(String username) {
+    public List<UserDirectoryResponseDto> getDIRList(String username) {
         Member findmember = memberRepository.findByUserName(username);
-        List<Directory> response =  directoryRepository.findByMember(findmember);
-        return response;
-    }
-    public List<Directory> getMyDIRList() {
-        List<Directory> response =  directoryRepository.findByMember(customUserDetailsService.getAuthenticatedEntity());
+        List<Directory> list =  directoryRepository.findByMember(findmember);
+
+        List<UserDirectoryResponseDto> response = list.stream()
+                .map(UserDirectoryResponseDto::fromEntity)
+                .collect(Collectors.toList());
         return response;
     }
 }

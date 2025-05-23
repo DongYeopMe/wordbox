@@ -3,14 +3,14 @@ import Layout from "../components/common/Layout";
 import data from "../data/directoryStub";
 import FolderListComponent from "../components/library/FolderListComponent";
 import LearningCardComponent from "../components/library/LearningCardComponent";
-function LibraryPage(chilren) {
+function LibraryPage() {
   const [selected, setSelected] = useState("폴더");
   const headText = useState("라이브러리");
 
-  const tablist = ["폴더", "학습중 카드"];
+  const tablist = ["폴더", "구독중 카드"];
   const tabComponents = {
     폴더: <FolderListComponent />,
-    "학습중 카드": <LearningCardComponent />,
+    "구독중 카드": <LearningCardComponent />,
   };
 
   return (

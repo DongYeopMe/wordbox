@@ -1,5 +1,6 @@
-package com.wordtree.directory;
+package com.wordtree.directory.repository;
 
+import com.wordtree.directory.entity.Directory;
 import com.wordtree.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

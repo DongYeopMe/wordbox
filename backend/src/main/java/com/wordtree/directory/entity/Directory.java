@@ -1,4 +1,4 @@
-package com.wordtree.directory;
+package com.wordtree.directory.entity;
 
 import com.wordtree.card.entity.Card;
 import com.wordtree.member.Member;
@@ -33,19 +33,19 @@ public class Directory {
     private Member member;
 
     @OneToMany(mappedBy = "directory", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Card> cards = new ArrayList<>();
+    private List<DirectoryCard> directoryCards = new ArrayList<>();
 
     @Builder
-    public Directory(String title, List<Card> cards,int count) {
+    public Directory(String title, List<DirectoryCard> directoryCards,int count) {
         this.title = title;
-        this.cards = cards;
+        this.directoryCards = directoryCards;
         this.count = count;
     }
 
     public static Directory createConvert(String title){
         return Directory.builder()
                 .title(title)
-                .cards(new ArrayList<>())
+                .directoryCards(new ArrayList<>())
                 .count(0)
                 .build();
     }

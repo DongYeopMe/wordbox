@@ -61,9 +61,17 @@ public class SecurityConfig {
                 .formLogin(auth->auth.disable())
                 .httpBasic(auth->auth.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/member/login","/","/member/register").permitAll()
-//                        .anyRequest().authenticated())
-                        .anyRequest().permitAll())
+                        .requestMatchers(
+                                "/member/login",
+                                "/member/register",
+                                "/",
+                                "/directory/getUserList",
+                                "/directory/get",
+                                "/card/getUserCards",
+                                "/card/getCard",
+                                "/card/getWordList"
+                        ).permitAll()
+                        .anyRequest().authenticated())
                 //세션 설정
                 .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class)
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration),jwtUtil), UsernamePasswordAuthenticationFilter.class)

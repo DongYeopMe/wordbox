@@ -11,9 +11,6 @@ function SignupPage() {
   const [userId, setuserId] = useState();
   const [passWord, setPassword] = useState();
   const [userName, setUserName] = useState();
-  const [IsIDValidation, setIDValidation] = useState(false);
-  const [IsPWValidation, setPWValidation] = useState(false);
-  const [IsUserNameValidation, setuserNameValidation] = useState(false);
   const navigate = useNavigate();
 
   const handleInputId = (e) => {
@@ -32,6 +29,13 @@ function SignupPage() {
       password: passWord,
       username: userName,
     };
+    try {
+      await registerMember(formdata);
+      alert("회원가입 완료");
+      navigate("/login");
+    } catch (error) {
+      console.log("실패", error.response?.data || error.message);
+    }
   };
 
   return (
@@ -48,7 +52,7 @@ function SignupPage() {
         <div className="flex flex-col w-[500px] py-10">
           <div className="mx-7">
             <form
-              onSubmit={handleSumit}
+              onSubmit={handleSubmit}
               className="flex flex-col items-center py-10 px-10"
             >
               <h1 className="text-2xl font-bold text-center mb-2 text-[#4f46e5]">
@@ -106,10 +110,18 @@ function SignupPage() {
               </div>
               <div id="Validation" className="h-[30px]"></div>
               <div className="w-full flex justify-between">
-                <button className="w-1/2 py-2 bg-[#4f46e5] hover:bg-[#4338CA] text-white font-semibold rounded-md transition">
+                <button
+                  type="submit"
+                  className="w-1/2 py-2 bg-[#4f46e5] hover:bg-[#4338CA] text-white font-semibold rounded-md transition"
+                >
                   확인
                 </button>
-                <button className="w-1/2 py-2 bg-gray-300  font-semibold rounded-md transition">
+                <button
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                  className="w-1/2 py-2 bg-gray-300  font-semibold rounded-md transition"
+                >
                   취소
                 </button>
               </div>
