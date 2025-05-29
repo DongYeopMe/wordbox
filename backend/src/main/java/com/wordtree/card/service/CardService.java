@@ -41,7 +41,7 @@ public class CardService {
     }
 
     public UserCardResponse getOne(CardGetRequest request) {
-        Card card =  cardRepository.findCardByTitleAndCardId(request.getCardId(),request.getTitle());
+        Card card =  cardRepository.findCardByTitleAndId(request.getTitle(),request.getCardId());
         Member member = customUserDetailsService.getAuthenticatedEntity();
         List<String> titles = directoryCardRepository.findDirectoryTitlesByCardAndMember(request.getCardId(), member.getId());
         boolean inDIR = !titles.isEmpty();
@@ -56,12 +56,12 @@ public class CardService {
     }
     public List<Card> getCards(Long directoryId) {
         Member member = customUserDetailsService.getAuthenticatedEntity();
-        List<Card> list =  cardRepository.findByDirectoryId(directoryId);
+        List<Card> list =  directoryCardRepository.findCardsByDirectoryId(directoryId);
         return list;
     }
 
     public CardWordListResponse getWords(CardGetRequest request) {
-        Card findCard = cardRepository.findCardByTitleAndCardId(request.getCardId(),request.getTitle());
+        Card findCard = cardRepository.findCardByTitleAndId(request.getTitle(),request.getCardId());
         CardWordListResponse response = new CardWordListResponse(findCard.getItemList(),checkUserIsMe(findCard.getOwner().getId()));
         return response;
     }

@@ -11,6 +11,7 @@ import CardCreatePage from "./pages/CardCreatePage.jsx";
 import CardUpdatePage from "./pages/CardUpdatePage.jsx";
 import QuizPage from "./pages/QuizPage.jsx";
 import WordCardPage from "./pages/WordCardPage.jsx";
+import DirectoryPage from "./pages/DirectoryPage.jsx";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/newcard" element={<CardCreatePage />} />
         <Route path="/cardupdate" element={<CardUpdatePage />} />
         <Route path="/wordcard" element={<WordCardPage />} />
+        <Route path="/directory" element={<DirectoryPage />} />
       </Routes>
     </BrowserRouter>
   );

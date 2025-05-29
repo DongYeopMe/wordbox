@@ -13,13 +13,7 @@ import java.util.List;
 @Repository
 public interface CardRepository extends JpaRepository<Card,Long> {
 
-    @Query("select c FROM Card c WHERE c.card_id = :cardId AND c.title = :title")
-    Card findCardByTitleAndCardId(@Param("cardId") Long directoryId,@Param("title") String title);
-    @Modifying
-    @Query("DELETE FROM Card c WHERE c.directory.id = :directoryId")
-    void deleteByDirectoryId(@Param("directoryId") Long directoryId);
-    @Query("select FROM Card c WHERE c.directory.id = :directoryId")
-    List<Card> findByDirectoryId(@Param("directoryId") Long directoryId);
+    Card findCardByTitleAndId(String title, Long id);
     @Query("select c FROM Card c WHERE c.owner = :member")
     List<Card> findByMember(@Param("member") Member member);
 

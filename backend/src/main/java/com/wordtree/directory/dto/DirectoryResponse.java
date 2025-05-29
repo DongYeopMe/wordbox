@@ -1,6 +1,6 @@
 package com.wordtree.directory.dto;
 
-import com.wordtree.card.dto.UserCardResponse;
+import com.wordtree.card.entity.Card;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
 
@@ -11,5 +11,5 @@ import java.util.List;
 public class DirectoryResponse {
     private String title;
     private int count;
-    private List<UserCardResponse> cardList;
+    private List<Card> cardList;
 }

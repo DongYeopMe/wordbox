@@ -4,6 +4,8 @@ import com.wordtree.card.dto.UserCardResponse;
 import com.wordtree.card.entity.Card;
 import com.wordtree.card.repository.CardRepository;
 import com.wordtree.directory.entity.Directory;
+import com.wordtree.directory.entity.DirectoryCard;
+import com.wordtree.directory.repository.DirectoryCardRepository;
 import com.wordtree.directory.repository.DirectoryRepository;
 import com.wordtree.directory.dto.DirectoryResponse;
 import com.wordtree.directory.dto.UserDirectoryResponseDto;
@@ -25,6 +27,7 @@ public class DirectoryService {
     private final CardRepository cardRepository;
     private final CustomUserDetailsService customUserDetailsService;
     private final MemberRepository memberRepository;
+    private final DirectoryCardRepository directoryCardRepository;
 
 
 
@@ -44,19 +47,14 @@ public class DirectoryService {
     @Transactional
     public void deleteDirectory(Long id){
         directoryRepository.deleteById(id);
-        cardRepository.deleteByDirectoryId(id);
+        directoryCardRepository.deleteById(id);
     }
     public DirectoryResponse getDirectory(Long id){
         Directory findDirectory = directoryRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("폴더 엔티티를 못찾았습니다."));
-        List<Card> cardlist = findDirectory.getCards();
-        Member member = customUserDetailsService.getAuthenticatedEntity();
-        List<UserCardResponse> cardResponses =
-                cardlist.stream()
-                        .map(card-> new UserCardResponse
-                                (card.getId(),card.getTitle(),card.getCount(),card.getOwner().getUsername(),member.getId().equals(card.getOwner().getId()))).collect(Collectors.toList());
+        List<Card> list = directoryCardRepository.findCardsByDirectoryId(id);
 
-        return new DirectoryResponse(findDirectory.getTitle(), findDirectory.getCount(), cardResponses);
+        return new DirectoryResponse(findDirectory.getTitle(), findDirectory.getCount(), list);
     }
     public List<UserDirectoryResponseDto> getDIRList(String username) {
         Member findmember = memberRepository.findByUserName(username);

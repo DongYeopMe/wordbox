@@ -17,4 +17,7 @@ public class UserCardResponse {
     private List<String> DIRTitle;
     private boolean inDIR;
     private boolean isMe;
+
+    public UserCardResponse(Long id, String title, int count, String username, boolean equals) {
+    }
 }
