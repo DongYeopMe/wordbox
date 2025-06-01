@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 
 // BsJournal : 일반/ BsJournalCheck  : 추가한 / BsJournalBookmarkFill : 학습하고 있는
 //우선순위 : 1. 학습 2. 추가한 3. 일반
-// 최신, 내가 학습하고 있는 카드, 내가 최근 보고 잇는 언어의 카드들 , 공식 카드(언어 선택 필수),
+// 최신, 내가 구독하고 있는 카드, 내가 최근 보고 잇는 언어의 카드들 , 공식 카드(언어 선택 필수),
 function HomePage(props) {
   return (
     <Layout>
