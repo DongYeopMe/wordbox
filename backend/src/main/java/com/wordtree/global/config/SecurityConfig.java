@@ -1,8 +1,5 @@
-package com.wordtree.global;
+package com.wordtree.global.config;
 
-import com.wordtree.global.jwt.JWTFilter;
-import com.wordtree.global.jwt.JWTUtil;
-import com.wordtree.global.jwt.LoginFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,12 +34,16 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
+
                 .formLogin(auth->auth.disable())
                 .httpBasic(auth->auth.disable())
+                //카드,단어추가,멤버수정 삭제 이런건 authentication 필요.
+                // card : delete,create,update,
+                // member : update,delete
+                // word : add,edit,getMyList,getMyWordCount
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/member/login","/","/member/register").permitAll()
-//                        .anyRequest().authenticated())
-                        .anyRequest().permitAll())
+                        .anyRequest().authenticated())
                 //세션 설정
                 .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class)
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration),jwtUtil), UsernamePasswordAuthenticationFilter.class)
