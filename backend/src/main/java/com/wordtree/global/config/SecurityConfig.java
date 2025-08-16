@@ -13,6 +13,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+//카드,단어추가,멤버수정 삭제 이런건 authentication 필요.
+// card : delete,create,update,
+// member : update,delete
+// word : add,edit,getMyList,getMyWordCount
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -37,16 +41,12 @@ public class SecurityConfig {
 
                 .formLogin(auth->auth.disable())
                 .httpBasic(auth->auth.disable())
-                //카드,단어추가,멤버수정 삭제 이런건 authentication 필요.
-                // card : delete,create,update,
-                // member : update,delete
-                // word : add,edit,getMyList,getMyWordCount
+
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/member/login","/","/member/register").permitAll()
                         .anyRequest().authenticated())
+                .formLogin(form -> form)
                 //세션 설정
-                .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class)
-                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration),jwtUtil), UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement((session)->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .build();
     }

@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.wordtree.member.Member.Role.USER;
 import static com.wordtree.member.Member.requestConvert;
 import static com.wordtree.member.dto.MemberResponse.memberConvert;
 
@@ -22,7 +23,7 @@ public class MemberService {
             return;
         }
         Member member = requestConvert(memberRequest);
-        member.setRoles("ROLE_ADMIN");
+        member.setRole(USER);
         member.setPassword(passwordEncoder.encode(member.getPassword()));
         memberRepository.save(member);
     }

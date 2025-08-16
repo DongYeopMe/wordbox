@@ -1,4 +1,4 @@
-package com.wordtree.global.jwt;
+package com.wordtree.global.handler;
 
 import com.wordtree.member.Member;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,7 +22,7 @@ public class CustomUserDetails implements UserDetails {
         collection.add(new GrantedAuthority() {
             @Override
             public String getAuthority() {
-                return member.getRoles();
+                return member.getRole().getTitle();
             }
         });
 
@@ -38,6 +38,7 @@ public class CustomUserDetails implements UserDetails {
     public String getUsername() {
         return member.getUserid();
     }
+
 
     @Override
     public boolean isAccountNonExpired() {

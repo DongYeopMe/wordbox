@@ -25,20 +25,21 @@ public class Member {
     @Column(name = "member_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="member_userid",nullable = false)
+    @Column(name="member_userid",nullable = false,unique = true)
     private String userid;
     @Column(name="member_password", nullable = false)
     private String password;
-    @Column(name="member_username", nullable = false)
+    @Column(name="member_username", nullable = false,unique = true)
     private String username;
-    @Column(name="member_role", nullable = false)
-    private String roles;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Builder
-    public Member(String userid, String password, String username) {
+    public Member(String userid, String password, String username, Role role) {
         this.userid = userid;
         this.password = password;
         this.username = username;
+        this.role = role;
     }
 
     public static Member requestConvert(MemberRequest memberRequest){
@@ -47,5 +48,14 @@ public class Member {
                 .password(memberRequest.getPassword())
                 .username(memberRequest.getUsername())
                 .build();
+    }
+    @Getter
+    @RequiredArgsConstructor
+    public enum Role {
+        USER("USER", "일반유저"),
+        ADMIN("ADMIN", "관리자");
+
+        private final String key;
+        private final String title;
     }
 }
