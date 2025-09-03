@@ -1,6 +1,6 @@
 package com.wordtree.global.jwt;
 
-import com.wordtree.member.Member;
+import com.wordtree.member.entity.Member;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

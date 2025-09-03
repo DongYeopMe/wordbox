@@ -1,7 +1,7 @@
 package com.wordtree.global.jwt;
 
-import com.wordtree.member.Member;
-import com.wordtree.member.MemberRepository;
+import com.wordtree.member.entity.Member;
+import com.wordtree.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -37,7 +37,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         String userid = userDetails.getUsername(); // `userid` 가져오기
 
-        // 📌 DB에서 `userid`를 기반으로 다시 조회하여 영속 상태로 반환
+        // DB에서 `userid`를 기반으로 다시 조회하여 영속 상태로 반환
         return memberRepository.findByUserId(userid);
     }
 }

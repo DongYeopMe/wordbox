@@ -1,10 +1,9 @@
 package com.wordtree.word;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.wordtree.card.Card;
 import com.wordtree.card.CardWord;
 import com.wordtree.card.Language;
-import com.wordtree.member.Member;
+import com.wordtree.member.entity.Member;
 import com.wordtree.word.dto.WordRequest;
 import jakarta.persistence.*;
 import lombok.*;

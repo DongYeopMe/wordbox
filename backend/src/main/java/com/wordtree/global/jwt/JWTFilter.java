@@ -1,6 +1,6 @@
 package com.wordtree.global.jwt;
 
-import com.wordtree.member.Member;
+import com.wordtree.member.entity.Member;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

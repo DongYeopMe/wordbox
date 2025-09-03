@@ -1,7 +1,7 @@
 package com.wordtree.card;
 
 import com.wordtree.global.jwt.CustomUserDetailsService;
-import com.wordtree.member.MemberRepository;
+import com.wordtree.member.repository.MemberRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

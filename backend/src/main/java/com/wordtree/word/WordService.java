@@ -2,8 +2,8 @@ package com.wordtree.word;
 
 import com.wordtree.card.*;
 import com.wordtree.global.jwt.CustomUserDetailsService;
-import com.wordtree.member.Member;
-import com.wordtree.member.MemberRepository;
+import com.wordtree.member.entity.Member;
+import com.wordtree.member.repository.MemberRepository;
 import com.wordtree.word.dto.GetWordRequest;
 import com.wordtree.word.dto.WordRequest;
 import jakarta.persistence.EntityNotFoundException;

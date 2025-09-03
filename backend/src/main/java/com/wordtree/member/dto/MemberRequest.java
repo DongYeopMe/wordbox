@@ -1,7 +1,5 @@
 package com.wordtree.member.dto;
 
-import com.wordtree.member.Member;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,10 +9,12 @@ public class MemberRequest {
     private String userid;
     private String password;
     private String username;
+    private String email;
 
-    public MemberRequest(String userid, String password, String username) {
+    public MemberRequest(String userid, String password, String username,String email) {
         this.userid = userid;
         this.password = password;
         this.username = username;
+        this.email = email;
     }
 }
