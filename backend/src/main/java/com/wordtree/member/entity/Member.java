@@ -64,13 +64,15 @@ public class Member {
     public static Member requestConvert(MemberRequest memberRequest){
         return Member.builder()
                 .userid(memberRequest.getUserid())
-                .password(memberRequest.getPassword())
                 .username(memberRequest.getUsername())
                 .isLock(false)
                 .isSocial(false)
                 .roleType(UserRoleType.USER)
                 .email(memberRequest.getEmail())
                 .build();
+    }
+    public void updatePassword(String password){
+        this.password = password;
     }
     public void updateUser(MemberRequest memberRequest){
         this.email = memberRequest.getEmail();

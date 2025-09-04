@@ -28,7 +28,7 @@ public class MemberService {
             throw new IllegalArgumentException("이미 유저가 존재합니다.");
         }
         Member member = requestConvert(memberRequest);
-        member.setPassword(passwordEncoder.encode(member.getPassword()));
+        member.updatePassword(passwordEncoder.encode(member.getPassword()));
         memberRepository.save(member);
     }
     // 수정
@@ -45,6 +45,9 @@ public class MemberService {
 
         findmember.updateUser(memberRequest);
     }
+    //비밀번호 수정
+
+
     // 유저 가져오기
     public MemberResponse getMember(String userId) {
         Member findMember = memberRepository.findByUserId(userId);

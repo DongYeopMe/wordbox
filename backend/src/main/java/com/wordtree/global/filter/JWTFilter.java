@@ -1,5 +1,7 @@
-package com.wordtree.global.jwt;
+package com.wordtree.global.filter;
 
+import com.wordtree.global.jwt.CustomUserDetails;
+import com.wordtree.global.jwt.JWTUtil;
 import com.wordtree.member.entity.Member;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
