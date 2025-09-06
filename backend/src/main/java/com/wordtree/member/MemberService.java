@@ -22,14 +22,14 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     // 회원가입
     @Transactional
-    public void createMember(MemberRequest memberRequest) {
+    public Long createMember(MemberRequest memberRequest) {
 
         if( memberRepository.existsByUserid(memberRequest.getUserid())){
             throw new IllegalArgumentException("이미 유저가 존재합니다.");
         }
         Member member = requestConvert(memberRequest);
         member.updatePassword(passwordEncoder.encode(member.getPassword()));
-        memberRepository.save(member);
+        return memberRepository.save(member).getId();
     }
     // 수정
     @Transactional

@@ -40,12 +40,14 @@ public class Card {
     @JoinColumn(name = "member_id")
     @JsonIgnore
     private Member member;
+
     @Builder
     public Card(String title, int count, Language language) {
         this.title = title;
         this.count = count;
         this.language = language;
     }
+
     public static Card requestConvert(CardRequest cardRequest){
         return Card.builder()
                 .title(cardRequest.getTitle())

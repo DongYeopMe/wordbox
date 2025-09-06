@@ -14,9 +14,9 @@ import java.util.Date;
 @Component
 public class JWTUtil {
 
-    private static final SecretKey secretKey;
-    private static final Long accessTokenExpiresIn;
-    private static final Long refreshTokenExpiresIn;
+    private final SecretKey secretKey;
+    private final Long accessTokenExpiresIn;
+    private final Long refreshTokenExpiresIn;
 
     public JWTUtil(@Value("${spring.jwt.secret}") String secret) {
 
@@ -41,7 +41,7 @@ public class JWTUtil {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getExpiration().before(new Date());
     }
     // JWT 유효 여부 (위조, 시간, Access/Refresh 여부)
-    public static Boolean isValid(String token, Boolean isAccess){
+    public Boolean isValid(String token, Boolean isAccess){
         try{
             Claims claims = Jwts.parser()
                     .verifyWith(secretKey)
