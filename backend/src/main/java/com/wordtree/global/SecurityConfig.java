@@ -1,6 +1,9 @@
 package com.wordtree.global;
 
 import com.wordtree.global.filter.LoginFilter;
+import com.wordtree.global.handler.RefreshTokenLogoutHandler;
+import com.wordtree.global.jwt.JWTUtil;
+import com.wordtree.global.jwt.JwtService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -24,13 +27,20 @@ public class SecurityConfig {
     //AuthenticationManager가 인자로 받을 AuthenticationConfiguraion 객체 생성자 주입
     private final AuthenticationConfiguration authenticationConfiguration;
     private final AuthenticationSuccessHandler loginSuccessHandler;
+    private final AuthenticationSuccessHandler socialSuccessHandler;
+    private final JwtService jwtService;
+    private final JWTUtil jwtUtil;
 
     public SecurityConfig(
             AuthenticationConfiguration authenticationConfiguration,
-            @Qualifier("LoginSuccessHandler") AuthenticationSuccessHandler loginSuccessHandler //특정 빈 주입
+            @Qualifier("LoginSuccessHandler") AuthenticationSuccessHandler loginSuccessHandler,
+            @Qualifier("SocialSuccessHandler") AuthenticationSuccessHandler socialSuccessHandler, JwtService jwtService, JWTUtil jwtUtil
     ) {
         this.authenticationConfiguration = authenticationConfiguration;
         this.loginSuccessHandler = loginSuccessHandler;
+        this.socialSuccessHandler = socialSuccessHandler;
+        this.jwtService = jwtService;
+        this.jwtUtil = jwtUtil;
     }
 
     @Bean
@@ -52,7 +62,14 @@ public class SecurityConfig {
         // 기본 Form 기반 인증 필터들 disable
         http
                 .formLogin(AbstractHttpConfigurer::disable);
-
+        // OAuth2 인증용
+        http
+                .oauth2Login(oauth2 -> oauth2
+                        .successHandler(socialSuccessHandler));
+        // 기본 로그아웃 필터 + 커스텀 Refresh 토큰 삭제 핸들러 추가
+        http
+                .logout(logout -> logout
+                        .addLogoutHandler(new RefreshTokenLogoutHandler(jwtService,jwtUtil)));
         // 기본 Basic 인증 필터 disable
         http
                 .httpBasic(AbstractHttpConfigurer::disable);

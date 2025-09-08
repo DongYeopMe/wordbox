@@ -10,14 +10,18 @@ import lombok.Setter;
 @NoArgsConstructor
 public class MemberResponse {
     private String userid;
+    private Boolean social;
     private String username;
+    private String email;
 
-    public MemberResponse(String userid, String username) {
+    public MemberResponse(String userid, Boolean social, String username, String email) {
         this.userid = userid;
+        this.social = social;
         this.username = username;
+        this.email = email;
     }
 
     public static MemberResponse memberConvert(Member member){
-        return new MemberResponse(member.getUsername(),member.getUserid());
+        return new MemberResponse(member.getUserid(),member.getIsSocial(),member.getUsername(),member.getEmail());
     }
 }

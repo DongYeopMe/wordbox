@@ -13,7 +13,9 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name="members")
 public class Member {
 
@@ -51,21 +53,11 @@ public class Member {
     private LocalDateTime updatedDate;
 
     @Builder
-    public Member(String userid, String password, String username, Boolean isLock, Boolean isSocial, String email, UserRoleType roleType) {
-        this.userid = userid;
-        this.password = password;
-        this.username = username;
-        this.isLock = isLock;
-        this.isSocial = isSocial;
-        this.email = email;
-        this.roleType = roleType;
-    }
-
-    @Builder
     public static Member requestConvert(MemberRequest memberRequest){
         return Member.builder()
                 .userid(memberRequest.getUserid())
                 .username(memberRequest.getUsername())
+                .password(memberRequest.getPassword())
                 .isLock(false)
                 .isSocial(false)
                 .roleType(UserRoleType.USER)

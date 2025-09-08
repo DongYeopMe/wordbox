@@ -18,6 +18,11 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
     Member findByUserId(@Param("userid") String userid);
 
     boolean existsByUserid(String userid);
+
+    void deleteByUserid(String userid);
+
+    Optional<Member> findByUseridAndIsSocial(String userid, boolean isSocial);
+
     Optional<Member> findByUseridAndIsLockAndIsSocial(String userid, Boolean isLock, Boolean isSocial);
 
 }
