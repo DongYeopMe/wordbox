@@ -1,5 +1,6 @@
 package com.wordtree.global;
 
+import com.wordtree.global.filter.JWTFilter;
 import com.wordtree.global.filter.LoginFilter;
 import com.wordtree.global.handler.RefreshTokenLogoutHandler;
 import com.wordtree.global.jwt.JWTUtil;
@@ -19,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -51,6 +53,8 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
+    @Bean
+    public
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // CSRF 보안 필터 disable
@@ -95,6 +99,7 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         // 커스텀 필터 추가
+        http.addFilterBefore(new JWTFilter(jwtUtil), LogoutFilter.class);
         http
                 .addFilterBefore(new LoginFilter(authenticationManager(authenticationConfiguration), loginSuccessHandler), UsernamePasswordAuthenticationFilter.class);
 
