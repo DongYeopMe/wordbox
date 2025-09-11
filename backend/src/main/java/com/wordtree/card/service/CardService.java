@@ -8,7 +8,7 @@ import com.wordtree.card.entity.Item;
 import com.wordtree.card.repository.CardRepository;
 import com.wordtree.directory.DirectoryRepository;
 import com.wordtree.global.jwt.CustomUserDetailsService;
-import com.wordtree.member.Member;
+import com.wordtree.member.entity.Member;
 import com.wordtree.member.MemberRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;

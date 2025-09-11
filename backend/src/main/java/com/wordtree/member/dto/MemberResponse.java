@@ -1,6 +1,6 @@
 package com.wordtree.member.dto;
 
-import com.wordtree.member.Member;
+import com.wordtree.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,15 +9,15 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 public class MemberResponse {
-    private String userid;
     private String username;
+    private String nickname;
 
-    public MemberResponse(String userid, String username) {
-        this.userid = userid;
+    public MemberResponse(String username, String nickname) {
         this.username = username;
+        this.nickname = nickname;
     }
 
     public static MemberResponse memberConvert(Member member){
-        return new MemberResponse(member.getUsername(),member.getUserid());
+        return new MemberResponse(member.getUsername(),member.getNickname());
     }
 }

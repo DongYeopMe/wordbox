@@ -2,7 +2,7 @@ package com.wordtree.directory;
 
 import com.wordtree.card.repository.CardRepository;
 import com.wordtree.global.jwt.CustomUserDetailsService;
-import com.wordtree.member.Member;
+import com.wordtree.member.entity.Member;
 import com.wordtree.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

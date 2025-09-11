@@ -1,6 +1,6 @@
 package com.wordtree.global.jwt;
 
-import com.wordtree.member.Member;
+import com.wordtree.member.entity.Member;
 import com.wordtree.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;

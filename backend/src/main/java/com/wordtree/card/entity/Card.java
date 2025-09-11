@@ -3,7 +3,7 @@ package com.wordtree.card.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wordtree.card.dto.CardRequest;
 import com.wordtree.directory.Directory;
-import com.wordtree.member.Member;
+import com.wordtree.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;

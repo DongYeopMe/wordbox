@@ -2,12 +2,13 @@ package com.wordtree.member;
 
 import com.wordtree.member.dto.MemberRequest;
 import com.wordtree.member.dto.MemberResponse;
+import com.wordtree.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.wordtree.member.Member.requestConvert;
+import static com.wordtree.member.entity.Member.requestConvert;
 import static com.wordtree.member.dto.MemberResponse.memberConvert;
 
 @Service
@@ -17,7 +18,7 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     @Transactional
     public void createMember(MemberRequest memberRequest) {
-        boolean isExist = memberRepository.existsByUserid(memberRequest.getUserid());
+        boolean isExist = memberRepository.existsByUserid(memberRequest.getUsername());
         if(isExist){
             return;
         }
@@ -29,9 +30,9 @@ public class MemberService {
 
     @Transactional
     public void editMember(MemberRequest memberRequest) {
-        Member findMember = memberRepository.findByUserId(memberRequest.getUserid());
+        Member findMember = memberRepository.findByUserId(memberRequest.getUsername());
         findMember.setPassword(memberRequest.getPassword());
-        findMember.setUsername(memberRequest.getUsername());
+        findMember.setUsername(memberRequest.getNickname());
     }
 
     public MemberResponse getMember(String userId) {
