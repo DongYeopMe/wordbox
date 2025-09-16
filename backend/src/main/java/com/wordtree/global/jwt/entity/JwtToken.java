@@ -1,4 +1,4 @@
-package com.wordtree.global.jwt;
+package com.wordtree.global.jwt.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

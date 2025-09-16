@@ -5,8 +5,10 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class MemberRequest {
 
@@ -27,9 +29,10 @@ public class MemberRequest {
     @Email(groups = {addGroup.class, updateGroup.class})
     private String email;
 
-    public MemberRequest(String username, String password, String nickname) {
+    public MemberRequest(String username, String password, String nickname,String email) {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
+        this.email = email;
     }
 }

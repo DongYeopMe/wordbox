@@ -1,4 +1,4 @@
-package com.wordtree.member;
+package com.wordtree.member.repository;
 
 import com.wordtree.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,14 +12,14 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member,Long> {
 
     @Query("select m From Member m where m.username = :username")
-    Member findByUserName(@Param("nickname") String username);
+    Member findByUserName(@Param("username") String username);
 
-    @Query("select m From Member m where m.userid = :userid")
-    Member findByUserId(@Param("userid") String userid);
+    boolean existsByUsername(String username);
 
-    boolean existsByUserid(String userid);
+    void deleteByUsername(String username);
 
-    Optional<Member> findByUseridAndIsLockAndIsSocial(String userid, Boolean isLock, Boolean isSocial);
+    Optional<Member> findByUsernameAndIsSocial(String username, boolean isSocial);
 
+    Optional<Member> findByUsernameAndIsLockAndIsSocial(String username, Boolean isLock, Boolean isSocial);
 }
 

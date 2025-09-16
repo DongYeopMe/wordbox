@@ -1,18 +1,21 @@
 package com.wordtree.global.filter;
 
-import com.wordtree.global.jwt.CustomUserDetails;
 import com.wordtree.global.jwt.JWTUtil;
-import com.wordtree.member.entity.Member;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.nio.channels.FileLock;
+import java.util.Collections;
+import java.util.List;
 
 public class JWTFilter extends OncePerRequestFilter {
 
@@ -24,47 +27,39 @@ public class JWTFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        //request에서 Authorization 헤더를 찾음
-        String authorization= request.getHeader("Authorization");
 
-        //Authorization 헤더 검증
-        if (authorization == null || !authorization.startsWith("Bearer ")) {
-
+        String authorization = request.getHeader("Authorization");
+        if (authorization == null) {
             filterChain.doFilter(request, response);
-
-            //조건이 해당되면 메소드 종료 (필수)
-            return;
-        }
-        //Bearer 부분 제거 후 순수 토큰만 획득
-        String token = authorization.split(" ")[1];
-
-        //토큰 소멸 시간 검증
-        if (jwtUtil.isExpired(token)) {
-
-            System.out.println("token expired");
-            filterChain.doFilter(request, response);
-
-            //조건이 해당되면 메소드 종료 (필수)
             return;
         }
 
-        //토큰에서 username과 role 획득
-        String userId = jwtUtil.getUserId(token);
-        String role = jwtUtil.getRole(token);
+        if (!authorization.startsWith("Bearer ")) {
+            throw new ServletException("Invalid JWT token");
+        }
 
-        Member member = new Member();
-        member.setUserid(userId);
-        member.setPassword("temppassword");
-        member.setRoles(role);
+        // 토큰 파싱
+        String accessToken = authorization.split(" ")[1];
 
-        //UserDetails에 회원 정보 객체 담기
-        CustomUserDetails customUserDetails = new CustomUserDetails(member);
+        if (jwtUtil.isValid(accessToken, true)) {
 
-        //스프링 시큐리티 인증 토큰 생성
-        Authentication authToken = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
-        //세션에 사용자 등록
-        SecurityContextHolder.getContext().setAuthentication(authToken);
+            String username = jwtUtil.getUsername(accessToken);
+            String role = jwtUtil.getRole(accessToken);
 
-        filterChain.doFilter(request, response);
+            List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(role));
+
+            Authentication auth = new UsernamePasswordAuthenticationToken(username, null, authorities);
+            SecurityContextHolder.getContext().setAuthentication(auth);
+
+            filterChain.doFilter(request, response);
+
+        } else {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json;charset=UTF-8");
+            response.getWriter().write("{\"error\":\"토큰 만료 또는 유효하지 않은 토큰\"}");
+            return;
+        }
+
     }
+
 }

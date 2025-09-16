@@ -9,7 +9,7 @@ import com.wordtree.card.repository.CardRepository;
 import com.wordtree.directory.DirectoryRepository;
 import com.wordtree.global.jwt.CustomUserDetailsService;
 import com.wordtree.member.entity.Member;
-import com.wordtree.member.MemberRepository;
+import com.wordtree.member.repository.MemberRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

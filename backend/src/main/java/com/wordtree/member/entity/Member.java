@@ -2,10 +2,7 @@ package com.wordtree.member.entity;
 
 import com.wordtree.member.dto.MemberRequest;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -15,7 +12,9 @@ import java.time.LocalDateTime;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Getter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name="members")
 public class Member {
 
@@ -53,28 +52,21 @@ public class Member {
     @LastModifiedDate
     @Column(name = "updated_date")
     private LocalDateTime updatedDate;
-    @Builder
-    public Member(String username, String password, String nickname, Boolean isLock, Boolean isSocial, String email, UserRoleType roleType) {
-        this.username = username;
-        this.password = password;
-        this.nickname = nickname;
-        this.isLock = isLock;
-        this.isSocial = isSocial;
-        this.email = email;
-        this.roleType = roleType;
-    }
 
     @Builder
     public static Member requestConvert(MemberRequest memberRequest){
         return Member.builder()
                 .username(memberRequest.getUsername())
                 .password(memberRequest.getPassword())
-                .username(memberRequest.getNickname())
+                .nickname(memberRequest.getNickname())
                 .isLock(false)
                 .isSocial(false)
                 .roleType(UserRoleType.USER)
                 .email(memberRequest.getEmail())
                 .build();
+    }
+    public void updatePassword(String password){
+        this.password = password;
     }
     public void updateUser(MemberRequest memberRequest){
         this.email = memberRequest.getEmail();
