@@ -1,6 +1,8 @@
 package com.wordtree.member.service;
 
 import com.wordtree.global.jwt.JwtService;
+import com.wordtree.member.dto.MemberNickNameDto;
+import com.wordtree.member.dto.MemberUserNameDto;
 import com.wordtree.member.entity.UserRoleType;
 import com.wordtree.member.repository.MemberRepository;
 import com.wordtree.member.dto.MemberRequest;
@@ -50,8 +52,6 @@ public class MemberService {
         findmember.updateUser(memberRequest);
         return findmember.getId();
     }
-    //비밀번호 수정
-
 
     // 유저 가져오기
     public MemberResponse getMember(String username) {
@@ -89,12 +89,18 @@ public class MemberService {
         return new MemberResponse(findMember.getUsername(),findMember.getIsSocial(),findMember.getNickname(), findMember.getEmail());
     }
 
-
-    //존재 하는지 검증
+    //존재 하는지 검증(username)
     @Transactional(readOnly = true)
-    public Boolean existUser(MemberRequest dto) {
+    public Boolean existUser(MemberUserNameDto dto) {
         return memberRepository.existsByUsername(dto.getUsername());
     }
+    //존재 하는지 검증(nickname)
+    @Transactional(readOnly = true)
+    public Boolean existUser(MemberNickNameDto dto) {
+        return memberRepository.existsByNickname(dto.getNickname());
+    }
+
+
 
 
 }

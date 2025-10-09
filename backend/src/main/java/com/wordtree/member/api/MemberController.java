@@ -1,8 +1,10 @@
 package com.wordtree.member.api;
 
 import com.wordtree.global.ResultResponse;
+import com.wordtree.member.dto.MemberNickNameDto;
 import com.wordtree.member.dto.MemberRequest;
 import com.wordtree.member.dto.MemberResponse;
+import com.wordtree.member.dto.MemberUserNameDto;
 import com.wordtree.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -21,13 +23,21 @@ import static com.wordtree.global.ResultCode.*;
 public class MemberController {
     private final MemberService memberService;
 
-    // 자체 로그인 유저 존재 확인
-    @PostMapping(value = "/user/exist", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Boolean> existUserApi(
-            @Validated(MemberRequest.existGroup.class) @RequestBody MemberRequest dto
+    // 유저 존재 확인
+    @PostMapping(value = "/user/exist/username", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Boolean> existUsernameApi(
+            @Validated(MemberRequest.existGroup.class) @RequestBody MemberUserNameDto dto
     ) {
         return ResponseEntity.ok(memberService.existUser(dto));
     }
+    // 닉네임 존재 확인
+    @PostMapping(value = "/user/exist/nickname", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Boolean> existNicknameApi(
+            @Validated(MemberRequest.existGroup.class) @RequestBody MemberNickNameDto dto
+    ) {
+        return ResponseEntity.ok(memberService.existUser(dto));
+    }
+
     //회원 가입
     @PostMapping(value = "/user", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, Long>> joinApi(
@@ -38,9 +48,9 @@ public class MemberController {
         return ResponseEntity.status(201).body(responseBody);
     }
     //유저 정보
-    @GetMapping("/get")
-    public ResponseEntity<Object> getMember(@RequestParam String userId){
-        MemberResponse memberResponse = memberService.getMember(userId);
+    @GetMapping("/get/user")
+    public ResponseEntity<Object> getMemberApi(@RequestParam String username){
+        MemberResponse memberResponse = memberService.getMember(username);
         return ResponseEntity.ok(ResultResponse.of(GET_MEMBER,memberResponse));
     }
     // 유저 정보

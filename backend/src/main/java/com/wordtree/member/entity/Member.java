@@ -28,8 +28,6 @@ public class Member {
     private String password;
     @Column(name="member_nickname", nullable = false)
     private String nickname;
-    @Column(name="member_role", nullable = false)
-    private String roles;
     @Column(name = "is_lock")
     private Boolean isLock;
     @Column(name = "is_Social")
