@@ -2,6 +2,7 @@ package com.wordtree.global.config;
 
 import com.wordtree.global.filter.JWTFilter;
 import com.wordtree.global.handler.RefreshTokenLogoutHandler;
+import com.wordtree.global.jwt.CustomUserDetailsService;
 import com.wordtree.global.jwt.JWTUtil;
 import com.wordtree.global.filter.LoginFilter;
 import com.wordtree.global.jwt.JwtService;
@@ -41,17 +42,20 @@ public class SecurityConfig {
     private final AuthenticationSuccessHandler socialSuccessHandler;
     private final JwtService jwtService;
     private final JWTUtil jwtUtil;
+    private final CustomUserDetailsService customUserDetailsService;
 
     public SecurityConfig(
             AuthenticationConfiguration authenticationConfiguration,
             @Qualifier("LoginSuccessHandler") AuthenticationSuccessHandler loginSuccessHandler,
             @Qualifier("SocialSuccessHandler") AuthenticationSuccessHandler socialSuccessHandler, JwtService jwtService, JWTUtil jwtUtil
+            ,CustomUserDetailsService customUserDetailsService
     ) {
         this.authenticationConfiguration = authenticationConfiguration;
         this.loginSuccessHandler = loginSuccessHandler;
         this.socialSuccessHandler = socialSuccessHandler;
         this.jwtService = jwtService;
         this.jwtUtil = jwtUtil;
+        this.customUserDetailsService = customUserDetailsService;
     }
     //비밀번호 암호화 Bean
     @Bean
@@ -137,7 +141,7 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         // 커스텀 필터 추가
-        http.addFilterBefore(new JWTFilter(jwtUtil), LogoutFilter.class);
+        http.addFilterBefore(new JWTFilter(jwtUtil,customUserDetailsService), LogoutFilter.class);
         http.addFilterBefore(new LoginFilter(authenticationManager(authenticationConfiguration), loginSuccessHandler), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

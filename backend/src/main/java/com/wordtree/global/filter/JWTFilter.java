@@ -10,26 +10,29 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.nio.channels.FileLock;
 import java.util.Collections;
 import java.util.List;
 
 public class JWTFilter extends OncePerRequestFilter {
 
     private final JWTUtil jwtUtil;
+    private final UserDetailsService userDetailsService;
 
-    public JWTFilter(JWTUtil jwtUtil) {
+    public JWTFilter(JWTUtil jwtUtil, UserDetailsService userDetailsService) {
         this.jwtUtil = jwtUtil;
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         String authorization = request.getHeader("Authorization");
-        if (authorization == null) {
+        if (authorization == null || authorization.isEmpty()) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -46,12 +49,10 @@ public class JWTFilter extends OncePerRequestFilter {
             String username = jwtUtil.getUsername(accessToken);
             String role = jwtUtil.getRole(accessToken);
 
-            List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(role));
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-            Authentication auth = new UsernamePasswordAuthenticationToken(username, null, authorities);
+            Authentication auth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(auth);
-
-            filterChain.doFilter(request, response);
 
         } else {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -59,6 +60,7 @@ public class JWTFilter extends OncePerRequestFilter {
             response.getWriter().write("{\"error\":\"토큰 만료 또는 유효하지 않은 토큰\"}");
             return;
         }
+        filterChain.doFilter(request, response);
 
     }
 

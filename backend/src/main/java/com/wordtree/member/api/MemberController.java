@@ -53,7 +53,7 @@ public class MemberController {
         MemberResponse memberResponse = memberService.getMember(username);
         return ResponseEntity.ok(ResultResponse.of(GET_MEMBER,memberResponse));
     }
-    // 유저 정보
+    // 유저 정보(로그인 유저)
     @GetMapping(value = "/user", consumes = MediaType.APPLICATION_JSON_VALUE)
     public MemberResponse userMe() {
         return memberService.selectMember();

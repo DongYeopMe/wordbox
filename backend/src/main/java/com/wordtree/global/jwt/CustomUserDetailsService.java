@@ -39,12 +39,7 @@ public class CustomUserDetailsService extends DefaultOAuth2UserService implement
 
         Member entity = memberRepository.findByUsernameAndIsLockAndIsSocial(username,false,false).orElseThrow(()-> new UsernameNotFoundException(username));
 
-        return User.builder()
-                .username(entity.getUsername())
-                .password(entity.getPassword())
-                .roles(entity.getRoleType().name())
-                .accountLocked(entity.getIsLock()).
-                build();
+        return new CustomUserDetails(entity);
     }
     public Member getAuthenticatedEntity() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
